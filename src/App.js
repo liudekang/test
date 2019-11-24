@@ -1,24 +1,20 @@
+/*
+ * @Author: mikey.liudekang 
+ * @Date: 2019-09-17 20:58:08 
+ * @Last Modified by: mikey.liudekang
+ * @Last Modified time: 2019-09-17 21:40:39
+ */
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import RouterView from './router/RouterView';
+import routeConfig from './router/routeConfig';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <RouterView routes={routeConfig.routes} />
+      </Router>
     </div>
   );
 }
