@@ -17,7 +17,9 @@ export default class Home extends React.Component {
         return (
             <div className="App">
                 当前首页
-               
+                <div>
+                    <RouterView routes={this.props.routes} />
+                </div>
             </div>
         );
     }
