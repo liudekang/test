@@ -2,9 +2,9 @@
  * @Author: mikey.liudekang
  * @Date: 2019-09-17 20:56:20
  * @Last Modified by: mikey.liudekang
- * @Last Modified time: 2019-11-24 19:46:29
+ * @Last Modified time: 2019-11-24 19:57:00
  */
-import Home from '../pages/home'
+import Home from '../pages/home/index'
 import NoFont404Page from '../pages/NoFont404Page'
 import Page1 from '../pages/p1/index'
 import Page2 from '../pages/p2'
