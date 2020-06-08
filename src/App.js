@@ -5,17 +5,30 @@
  * @Last Modified time: 2019-11-24 19:46:18
  */
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 import RouterView from './router/RouterView'
 import routeConfig from './router/routeConfig'
+import TopNav from './components/TopNav'
+import classnames from 'classnames'
+
+import styles from './App.css'
+// console.log(111, className)
 
 function App() {
   return (
-    <div className='App'>
-      <Router>
-        <RouterView routes={routeConfig.routes} />
-      </Router>
-    </div>
+    <Router>
+      <div className={classnames({
+        [styles['reactwrapper']]: true,
+        [styles.ee]: false,
+      })}>
+
+        <TopNav></TopNav>
+        <div className={styles.pageWrapper}>
+          <RouterView routes={routeConfig.routes} />
+        </div>
+
+      </div>
+    </Router>
   )
 }
 

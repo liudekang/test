@@ -13,25 +13,23 @@ export default {
   routes: [
     {
       path: '/',
+      name: '首页',
       component: Home,
       exact: true,
-      children: [
-        {
-          path: '/index/p1',
-          component: Page1,
-        },
-        {
-          path: '/index/p2',
-          component: Page2,
-        },
-      ],
     },
     {
-      path: '/p2',
+      path: '/test/antv',
+      name: '测试antv页',
+      component: Page1,
+    },
+    {
+      path: '/test/hook',
+      name: '测试hook页',
       component: Page2,
     },
     {
-      path: '/404',
+      path: '/user/404',
+      name: '404页面',
       component: NoFont404Page,
     },
   ],
