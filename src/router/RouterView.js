@@ -55,6 +55,6 @@ const RouterView = (props) =>
 
 RouterView.propTypes = {
   // 引入prop-types后，使用方式和之前相同
-  routes: PropTypes.object,
+  routes: PropTypes.array,
 }
 export default RouterView
