@@ -6,8 +6,9 @@
  */
 import Home from '../pages/home/index'
 import NoFont404Page from '../pages/NoFont404Page'
-import Page1 from '../pages/p1/index'
-import Page2 from '../pages/p2'
+import testAntv from '../pages/testAntv'
+import testHook from '../pages/testHook'
+import mangeImgs from '../pages/mangeImgs'
 
 export default {
   routes: [
@@ -20,12 +21,17 @@ export default {
     {
       path: '/test/antv',
       name: '测试antv页',
-      component: Page1,
+      component: testAntv,
     },
     {
       path: '/test/hook',
       name: '测试hook页',
-      component: Page2,
+      component: testHook,
+    },
+    {
+      path: '/mangeImgs',
+      name: '管理图片',
+      component: mangeImgs,
     },
     {
       path: '/user/404',

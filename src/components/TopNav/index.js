@@ -28,6 +28,11 @@ export default class Home extends React.Component {
             ))
           }
         </ul>
+
+        <div>
+          Liudekang
+          {/* <img src='gengzi.jpg' alt='' srcSet=''/> */}
+        </div>
       </nav>
     )
   }

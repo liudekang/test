@@ -30,16 +30,10 @@ service.interceptors.response.use(
     /**
     * code为非000000是抛错 可结合自己业务进行修改
     */
-    const res = response.data
-    if (res.code !== '000000') {
-      console.log('response', res)
-      res.code = res.data.code
-      res.message = res.response.data.msg
-      //   Toast.info(res.code+res.message, 2);
-      return Promise.reject('error')
-    } else {
+    if (response.status === 200 && response.data) {
       return response.data
     }
+    return response
   },
   error => {
     return Promise.reject(error)
