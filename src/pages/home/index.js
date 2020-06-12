@@ -29,7 +29,7 @@ export default class Home extends React.Component {
       <div className={styles.homeWrap} >
         <h5>当前首页</h5>
         <Button onClick={this.submitFn}>annu</Button>
-
+        <img src='https://i.loli.net/2017/08/02/598187babf39e.gif' />
       </div>
     )
   }
