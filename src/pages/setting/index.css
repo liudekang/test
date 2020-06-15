@@ -1,0 +1,11 @@
+ .login {
+     display: flex;
+ }
+ 
+ .form_wrap {
+     width: 520px;
+ }
+ 
+ .reset_btn {
+     margin-left: 12px;
+ }

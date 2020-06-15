@@ -41,7 +41,7 @@ const RouterView = (props) =>
       )
       )
     }
-    <Redirect to={
+    {/* <Redirect to={
       {
         pathname: '404',
         state: {
@@ -50,7 +50,7 @@ const RouterView = (props) =>
         },
       }
     }
-    />
+    /> */}
   </Switch>
 
 RouterView.propTypes = {

@@ -9,6 +9,10 @@ import NoFont404Page from '../pages/NoFont404Page'
 import testAntv from '../pages/testAntv'
 import testHook from '../pages/testHook'
 import mangeImgs from '../pages/mangeImgs'
+import login from '../pages/login'
+import setting from '../pages/setting'
+import userList from '../pages/userList'
+import administrators from '../pages/administrators'
 
 export default {
   routes: [
@@ -38,5 +42,29 @@ export default {
       name: '404页面',
       component: NoFont404Page,
     },
+    {
+      path: '/login',
+      name: '登录',
+      component: login,
+    },
+    {
+      path: '/setting',
+      name: '设置',
+      component: setting,
+      // exact: true,
+      children: [
+        {
+          path: '/setting/administrators',
+          name: '管理员列表',
+          component: administrators,
+        },
+        {
+          path: '/setting/userList',
+          name: '用户列表',
+          component: userList,
+        },
+      ],
+    },
+
   ],
 }
