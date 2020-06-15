@@ -47,8 +47,8 @@ const Login = (props) => {
       console.log(res)
       message.success('登录成功');
       setTimeout(() => {
-        props.history.goBack()
-        // props?.history?.goBack()
+        // props.history.goBack()
+        props?.history?.goBack()
       }, 500)
     }).catch(err => {
       console.log(err)
