@@ -1,11 +1,27 @@
- .login {
+ .settong {
      display: flex;
+     background: #fff;
  }
  
- .form_wrap {
-     width: 520px;
+ .slider {
+     width: 120px;
+     display: flex;
+     flex-direction: column;
+     padding: 12px;
+     background: #fcfcfc;
  }
  
- .reset_btn {
-     margin-left: 12px;
+ .nav_link_item {
+     margin-bottom: 4px;
+     padding: 2px 8px;
+ }
+ 
+ .nav_link_item:hover {
+     background-color: #ccc;
+ }
+ 
+ .content_page {
+     padding: 12px 20px;
+     flex: 1;
+     overflow: hidden;
  }

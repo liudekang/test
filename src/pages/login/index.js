@@ -4,14 +4,17 @@
  * @Last Modified by: mikey.liudekang
  * @Last Modified time: 2020-06-09 22:07:07
  */
-import React, { useForm } from 'react';
+import React, { useForm, useEffect } from 'react';
 
 import { Form, Input, Button, Tabs, message } from 'antd';
+import useConnect from 'Src/contextRedux/useConext';
+import { storeContext } from 'Src/contextRedux/store';
 import { UserOutlined, LockOutlined, WhatsAppOutlined, VerifiedOutlined, MailOutlined } from '@ant-design/icons';
 import service from 'Src/utils/request';
 
 import styles from './index.css'
-import { useEffect } from 'react';
+
+// const TestContext= React.createContext({});
 
 const { TabPane, } = Tabs;
 const layout = {
@@ -24,31 +27,34 @@ const tailLayout = {
 
 const Login = (props) => {
   const [form] = Form.useForm();
-  useEffect(() => {
-    console.log(222, window.Bmob, props)
-    // Bmob.User.users().then(res => {
-    //   console.log(res)
-    // }).catch(err => {
-    //   console.log(err)
-    // })
+  const { state, dispatch, } = useConnect(storeContext);
+  // console.log(8888, state, dispatch,)
+  // useEffect(() => {
+  //   console.log(222, window.Bmob, props)
+  //   // Bmob.User.users().then(res => {
+  //   //   console.log(res)
+  //   // }).catch(err => {
+  //   //   console.log(err)
+  //   // })
 
-    const current = window.Bmob.User.current()
-    console.log(111, current)
-  }, [])
-  // submitFn = () => {
-  //   // service.get('/api/users')
-  //   //   .then(res => {
-  //   //     console.log(11, res)
-  //   //   })
-  // }
+  //   const current = window.Bmob.User.current()
+  //   console.log(111, current)
+  // }, [])
   const onLoginFinish = values => {
     console.log('Success:', values);
     window.Bmob.User.login(values.username, values.password).then(res => {
       console.log(res)
       message.success('登录成功');
+      dispatch({ type: 'change_userName', params: values.username, })
       setTimeout(() => {
         // props.history.goBack()
         props?.history?.goBack()
+        // window.history.back()
+        // Bmob.User.users().then(res => {
+        //   console.log(677777, res)
+        // }).catch(err => {
+        //   console.log(err)
+        // })
       }, 500)
     }).catch(err => {
       console.log(err)
@@ -124,6 +130,7 @@ const Login = (props) => {
           </Form>
 
         </TabPane>
+
         <TabPane tab='注册' key='register'>
           <Form
             className={styles.form_wrap}

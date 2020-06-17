@@ -14,16 +14,16 @@ import styles from './index.css'
 
 const Setting = (props) => {
   useEffect(() => {
-    console.log(177, props)
+    // console.log(177, props)
   }, [])
   return (
-    <div className={styles.login} >
-      <div>
-        <NavLink to='/setting/administrators'>管理员列表</NavLink>
-        <NavLink to='/setting/userList'>用户列表</NavLink>
+    <div className={styles.settong} >
+      <div className={styles.slider}>
+        <NavLink className={styles.nav_link_item} to='/setting/administrators'>管理员列表</NavLink>
+        <NavLink className={styles.nav_link_item} to='/setting/userList'>用户列表</NavLink>
       </div>
-      <div className={styles.pageWrapper}>
-        <RouterView routes={props.routes} />
+      <div className={styles.content_page}>
+        <RouterView routes={props?.routes} />
       </div>
     </div>
   )

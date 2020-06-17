@@ -4,90 +4,67 @@
  * @Last Modified by: mikey.liudekang
  * @Last Modified time: 2020-06-09 22:07:07
  */
-import React, { useForm } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, message } from 'antd';
 import service from 'Src/utils/request';
 
 import styles from './index.css'
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: text => <a>{text}</a>,
+    title: 'objectId',
+    dataIndex: 'objectId',
+    key: 'objectId',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: '用户名',
+    dataIndex: 'username',
+    key: 'username',
+    // render: text => <a>{text}</a>,
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: '邮箱',
+    dataIndex: 'email',
+    key: 'email',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: tags => (
-      <>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: '手机号',
+    dataIndex: 'phone',
+    key: 'phone',
   },
   {
-    title: 'Action',
-    key: 'action',
-    render: (text, record) => (
-      <Space size='middle'>
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
-
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    title: '创建时间',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
   },
   {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
+    title: '最近活跃时间',
+    dataIndex: 'updatedAt',
+    key: 'updatedAt',
   },
 ];
 const UserList = () => {
+  const [userList, Set_userList] = useState([])
+  useEffect(() => {
+    const query = window.Bmob.Query('_User');
+    query.find().then(res => {
+      if (Array.isArray(res)) {
+        Set_userList(res)
+      }
+    }).catch(err => {
+      console.log(err)
+      if (typeof err.error === 'string') {
+        message.warning(err.error.slice(0, 300))
+      } else {
+        message.error('操作失败')
+      }
+    });
+  }, [])
   return (
     <div className={styles.login} >
       <h6>用户列表信息</h6>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={userList} />
     </div>
   )
 }

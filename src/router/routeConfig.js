@@ -10,6 +10,7 @@ import testAntv from '../pages/testAntv'
 import testHook from '../pages/testHook'
 import mangeImgs from '../pages/mangeImgs'
 import login from '../pages/login'
+import user from '../pages/user'
 import setting from '../pages/setting'
 import userList from '../pages/userList'
 import administrators from '../pages/administrators'
@@ -46,6 +47,11 @@ export default {
       path: '/login',
       name: '登录',
       component: login,
+    },
+    {
+      path: '/user',
+      name: '个人中心',
+      component: user,
     },
     {
       path: '/setting',

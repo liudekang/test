@@ -7,10 +7,14 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
 import { Menu, Dropdown, Button } from 'antd'
-import routeConfig from '../../router/routeConfig'
+import routeConfig from 'Src/router/routeConfig'
+import useConnect from 'Src/contextRedux/useConext';
+import { storeContext } from 'Src/contextRedux/store';
+
 import styles from './index.css';
 
 const TopNav = () => {
+  const { state, dispatch, } = useConnect(storeContext);
   const [isLogin, set_isLogin] = useState(false)
   const [user, set_user] = useState({})
   useEffect(() => {
@@ -19,8 +23,8 @@ const TopNav = () => {
       set_user(current)
       set_isLogin(true)
     }
-    console.log(55666, current)
-  }, [])
+    console.log('user===', current)
+  }, [state.userName])
 
   const loginOutFn = () => {
     window.Bmob && window.Bmob.User.logout();
@@ -45,12 +49,13 @@ const TopNav = () => {
             isLogin
               ? <Dropdown overlay={<Menu>
                 <Menu.Item>
+
                 个人中心
                   {/* <a target='_blank' rel='noopener noreferrer' href='http://www.alipay.com/'>
                   </a> */}
                 </Menu.Item>
                 <Menu.Item>
-                邮箱:{user.email}
+                  <Link to='/setting/administrators'>设置</Link>
                 </Menu.Item>
                 <Menu.Item>
                   <span onClick={loginOutFn}>
