@@ -1,0 +1,58 @@
+.nav_Topper_Wrap {
+    background-color: #38A3DB;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav_Topper_inner {
+    flex: 1;
+    overflow: hidden;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav_List {
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav_Item {
+    margin-right: 4px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav_Item :global a {
+    padding: 2px 10px;
+    color: #fff;
+    margin-right: 4px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.nav_Item :global a:hover {
+    background-color: #0072BC;
+}
+
+.login_btn {
+    color: #fff;
+}
+
+.nav_topper_right .login_btn:hover {
+    color: #fff;
+}
+
+
+/* .user_name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-right: 24px;
+} */

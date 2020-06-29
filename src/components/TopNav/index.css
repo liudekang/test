@@ -1,5 +1,5 @@
 .nav_Topper_Wrap {
-    background-color: #38A3DB;
+    background-color: #000;
     height: 55px;
     display: flex;
     justify-content: center;
@@ -34,7 +34,6 @@
     color: #fff;
     margin-right: 4px;
     font-size: 16px;
-    border-radius: 4px;
 }
 
 .nav_Item :global a:hover {

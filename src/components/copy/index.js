@@ -4,39 +4,36 @@
  * @Last Modified by: mikey.liudekang
  * @Last Modified time: 2019-11-24 20:01:12
  */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Menu, Dropdown, Button } from 'antd'
 
-import { Button } from 'antd'
-import Graphin, { Utils } from '@antv/graphin';
-import { Toolbar } from '@antv/graphin-components';
+import styles from './index.css';
 
-import '@antv/graphin/dist/index.css'; // Graphin CSS
-import '@antv/graphin-components/dist/index.css'; // Graphin 组件 CSS
-// import RouterView from '../../router/RouterView';
+const TopNav = () => {
+  const [isLogin, set_isLogin] = useState(false)
+  useEffect(() => {
+    // const current = window.Bmob ? window.Bmob.User.current() : null;
+    // if (current && typeof current === 'object') {
+    //   window.user = current
+    //   set_user(current)
+    //   set_isLogin(true)
+    // }
+    // console.log('user===', current)
+  }, [])
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
+  const loginOutFn = () => {
+    // window.Bmob && window.Bmob.User.logout();
+    // set_user({})
+    // set_isLogin(false)
+    // window.user = null
   }
 
-  asdasd = () => ('123')
+  return (
+    <div className={styles.nav_Topper_inner}>
 
-  render = () => {
-    const aa = '123'
-    const data = Utils.mock(10).circle().graphin();
-    console.log(2888, Toolbar)
-    return (
-      <div className='App' >
-        <h5>当前首页</h5>
-        <Button>annu</Button> {aa}
+    </div>
 
-        <div className='App'>
-          <Graphin data={data} layout={{ name: 'concentric', }}>
-            {/* <Toolbar /> */}
-          </Graphin>
-        </div>
-      </div>
-    )
-  }
+  )
 }
+
+export default TopNav

@@ -427,25 +427,39 @@ module.exports = function(webpackEnv) {
             // to a file, but in development "style" loader enables hot editing
             // of CSS.
             // By default we support CSS Modules with the extension .module.css
-            // {
-            //   test: cssRegex,
-            //   exclude: cssModuleRegex,
-            //   use: getStyleLoaders({
-            //     importLoaders: 1,
-            //     sourceMap: isEnvProduction && shouldUseSourceMap,
-            //   }),
-
-            //   // Don't consider CSS imports dead code even if the
-            //   // containing package claims to have no side effects.
-            //   // Remove this when webpack adds a warning or an error for this.
-            //   // See https://github.com/webpack/webpack/issues/6571
-            //   sideEffects: true,
-            // },
             {
-              test: /\.css$/,
-              loader: 'style-loader!css-loader?modules&localIdentName=[path][name]-[local]-[hash:base64:8]',
-              // [path][name][local][hash:base64:n]
+              test: cssRegex,
+              // exclude: cssModuleRegex,
+              use: getStyleLoaders({
+                modules: true,
+                localIdentName: '[path][name]-[local]-[hash:base64:8]',
+                importLoaders: 1,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+              }),
+              // use: [
+              //   { loader: 'style-loader', },
+              //   { loader: 'css-loader?modules&localIdentName=[path][name]-[local]-[hash:base64:8]', },
+              //   { loader: 'postcss-loader', }
+              // ],
+              // Don't consider CSS imports dead code even if the
+              // containing package claims to have no side effects.
+              // Remove this when webpack adds a warning or an error for this.
+              // See https://github.com/webpack/webpack/issues/6571
+              sideEffects: true,
             },
+            // {
+            //   test: /\.less/,
+            //   use: [
+            //     { loader: 'style-loader' },
+            //     { loader: 'css-loader' },
+            //     { loader: 'less-loader' }
+            //   ]
+            // }
+            // {
+            //   test: /\.css$/,
+            //   loader: 'style-loader!css-loader?modules&localIdentName=[path][name]-[local]-[hash:base64:8]',
+            //   // [path][name][local][hash:base64:n]
+            // },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
             // using the extension .module.css
             {

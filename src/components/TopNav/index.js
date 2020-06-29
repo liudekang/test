@@ -20,6 +20,7 @@ const TopNav = () => {
   useEffect(() => {
     const current = window.Bmob ? window.Bmob.User.current() : null;
     if (current && typeof current === 'object') {
+      window.user = current
       set_user(current)
       set_isLogin(true)
     }
@@ -30,6 +31,7 @@ const TopNav = () => {
     window.Bmob && window.Bmob.User.logout();
     set_user({})
     set_isLogin(false)
+    window.user = null
   }
 
   return (
@@ -39,7 +41,7 @@ const TopNav = () => {
         <ul className={styles.nav_List}>
           {
             routeConfig.routes.map(item => (
-              <li className={styles.nav_Item} key={item.path}><Link to={item.path}>{item.name}</Link></li>
+              item.show && <li className={styles.nav_Item} key={item.path}><Link to={item.path}>{item.name}</Link></li>
             ))
           }
         </ul>

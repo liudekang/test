@@ -5,12 +5,13 @@
   "plugins":[
     //let value = a?.b?.c?.d; 配置问号语法
     "@babel/plugin-proposal-optional-chaining",
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "style": true
-      }
-    ] 
+    //导入有bug
+    // [
+    //   "import",
+    //   {
+    //     "libraryName": "antd",
+    //     "style": true
+    //   }
+    // ] 
   ]
 }  

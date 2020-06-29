@@ -1,0 +1,47 @@
+ /* .wrapper {
+     padding: 12px;
+     background: #fff;
+ } */
+ 
+ .form_Wrap {
+     display: flex;
+     flex-wrap: wrap;
+     /* background: gainsboro; */
+ }
+ 
+ .form_Wrap :global .ant-form-item {
+     width: 25%;
+     display: flex;
+ }
+ 
+ .form_Wrap :global .ant-form-item-label {
+     width: 80px;
+     padding-left: 10px;
+     flex-shrink: 0;
+ }
+ 
+ .form_Wrap :global .ant-form-item-control {
+     flex: 1;
+     overflow: hidden;
+ }
+ 
+ .form_Wrap :global .ant-picker {
+     width: 100%;
+ }
+ 
+ .form_Wrap .form_item_btns {
+     margin-left: 80px;
+ }
+ 
+ .reset_btn {
+     margin-left: 12px;
+ }
+ 
+ .read_mord {
+     cursor: pointer;
+     color: mediumblue;
+ }
+ 
+ .read_only_wrapper {
+     padding: 12px 20px;
+ }

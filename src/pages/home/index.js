@@ -8,6 +8,7 @@ import React from 'react';
 
 import { Button } from 'antd';
 import service from 'Src/utils/request';
+import Panel from 'Src/components/Panel';
 
 import styles from './index.css'
 
@@ -26,19 +27,24 @@ export default class Home extends React.Component {
 
   render = () => {
     return (
-      <div className={styles.homeWrap} >
-        <div className={styles.content}>
-          <h5 className={styles.title}>网页添加 Live2D 看板娘</h5>
-          <h5>当前首页</h5>
-          <Button onClick={this.submitFn}>annu</Button>
+      <Panel>
+        <div className={styles.homeWrap} >
 
+          <div className={styles.content}>
+            <h5 className={styles.title}>网页添加 Live2D 看板娘</h5>
+            <h5>当前首页</h5>
+            <Button onClick={this.submitFn}>annu</Button>
+
+          </div>
+
+          <div className={styles.slider}>
+            {/* <img src='https://i.loli.net/2017/08/02/598187babf39e.gif' /> */}
+            <img src='/dance.webp' />
+          </div>
         </div>
 
-        <div className={styles.slider}>
-          {/* <img src='https://i.loli.net/2017/08/02/598187babf39e.gif' /> */}
-          <img src='/dance.webp' />
-        </div>
-      </div>
+      </Panel>
+
     )
   }
 }

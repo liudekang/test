@@ -1,0 +1,8 @@
+ .wrapper {
+     padding: 12px 20px;
+ }
+ 
+ .draft_div {
+     min-height: 200px;
+     border: 1px solid #ccc;
+ }

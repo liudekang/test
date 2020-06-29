@@ -9,6 +9,7 @@ import NoFont404Page from '../pages/NoFont404Page'
 import testAntv from '../pages/testAntv'
 import testHook from '../pages/testHook'
 import mangeImgs from '../pages/mangeImgs'
+import draftBlog from '../pages/draftBlog'
 import login from '../pages/login'
 import user from '../pages/user'
 import setting from '../pages/setting'
@@ -22,6 +23,7 @@ export default {
       name: '首页',
       component: Home,
       exact: true,
+      show: true,
     },
     {
       path: '/test/antv',
@@ -34,8 +36,15 @@ export default {
       component: testHook,
     },
     {
+      path: '/draftBlog',
+      name: '添加文章',
+      component: draftBlog,
+      show: true,
+    },
+    {
       path: '/mangeImgs',
       name: '管理图片',
+      show: true,
       component: mangeImgs,
     },
     {
@@ -47,6 +56,7 @@ export default {
       path: '/login',
       name: '登录',
       component: login,
+
     },
     {
       path: '/user',
@@ -57,7 +67,7 @@ export default {
       path: '/setting',
       name: '设置',
       component: setting,
-      // exact: true,
+
       children: [
         {
           path: '/setting/administrators',
