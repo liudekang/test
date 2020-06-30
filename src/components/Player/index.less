@@ -1,0 +1,38 @@
+.player_wrapper {
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+    height: 180px;
+    width: 365px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 5px 5px 0 0;
+
+    display: flex;
+    flex-direction: column;
+
+    .player_main {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+
+        .p_main_left,
+        .p_main_right {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .p_main_center {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+    }
+
+    .player_footer {
+        height: 20px;
+        flex-shrink: 0;
+        background: #ccc;
+    }
+}

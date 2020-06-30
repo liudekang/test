@@ -8,6 +8,7 @@ import React from 'react';
 
 import { Button } from 'antd';
 import service from 'Src/utils/request';
+import Player from 'Src/components/Player';
 import Panel from 'Src/components/Panel';
 
 import styles from './index.css'
@@ -34,7 +35,7 @@ export default class Home extends React.Component {
             <h5 className={styles.title}>网页添加 Live2D 看板娘</h5>
             <h5>当前首页</h5>
             <Button onClick={this.submitFn}>annu</Button>
-
+            <Player></Player>
           </div>
 
           <div className={styles.slider}>

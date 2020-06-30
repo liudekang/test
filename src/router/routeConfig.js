@@ -4,24 +4,42 @@
  * @Last Modified by: mikey.liudekang
  * @Last Modified time: 2019-11-24 19:57:00
  */
-import Home from '../pages/home/index'
-import NoFont404Page from '../pages/NoFont404Page'
-import testAntv from '../pages/testAntv'
-import testHook from '../pages/testHook'
-import mangeImgs from '../pages/mangeImgs'
-import draftBlog from '../pages/draftBlog'
-import login from '../pages/login'
-import user from '../pages/user'
-import setting from '../pages/setting'
-import userList from '../pages/userList'
-import administrators from '../pages/administrators'
 
+import loadable from './loadable'
+
+// import Home from 'Page/home/index'
+// import NoFont404Page from 'Page/NoFont404Page'
+// import testAntv from 'Page/testAntv'
+// import testHook from 'Page/testHook'
+// import mangeImgs from 'Page/mangeImgs'
+// import draftBlog from 'Page/draftBlog'
+// import login from 'Page/login'
+// import user from 'Page/user'
+// import setting from 'Page/setting'
+// import userList from 'Page/userList'
+// import loadingPage from 'Page/loadingPage'
+// import administrators from 'Page/administrators'
+
+// const wwww = loadable(() => import(/* webpackChunkName: "Page-wwww" */'Page/wwww'))
+
+const home = loadable(() => import(/* webpackChunkName: "Page-home" */'Page/home'))
+const NoFont404Page = loadable(() => import(/* webpackChunkName: "Page-NoFont404Page" */'Page/NoFont404Page'))
+const testAntv = loadable(() => import(/* webpackChunkName: "Page-testAntv" */'Page/testAntv'))
+const testHook = loadable(() => import(/* webpackChunkName: "Page-testHook" */'Page/testHook'))
+const mangeImgs = loadable(() => import(/* webpackChunkName: "Page-mangeImgs" */'Page/mangeImgs'))
+const draftBlog = loadable(() => import(/* webpackChunkName: "Page-draftBlog" */'Page/draftBlog'))
+const login = loadable(() => import(/* webpackChunkName: "Page-login" */'Page/login'))
+const user = loadable(() => import(/* webpackChunkName: "Page-user" */'Page/user'))
+const setting = loadable(() => import(/* webpackChunkName: "Page-setting" */'Page/setting'))
+const userList = loadable(() => import(/* webpackChunkName: "Page-userList" */'Page/userList'))
+const loadingPage = loadable(() => import(/* webpackChunkName: "Page-loadingPage" */'Page/loadingPage'))
+const administrators = loadable(() => import(/* webpackChunkName: "Page-administrators" */'Page/administrators'))
 export default {
   routes: [
     {
       path: '/',
       name: '首页',
-      component: Home,
+      component: home,
       exact: true,
       show: true,
     },
@@ -29,6 +47,11 @@ export default {
       path: '/test/antv',
       name: '测试antv页',
       component: testAntv,
+    },
+    {
+      path: '/loading',
+      name: 'loading页面',
+      component: loadingPage,
     },
     {
       path: '/test/hook',
