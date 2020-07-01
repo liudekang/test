@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5中的SVG属性实现圆形进度条效果</title>
+</head>
+linear-gradient(90deg, rgb(108, 105, 113) 50%, transparent 50%, transparent), linear-gradient(146.41deg, rgb(129, 195, 0) 50%, rgb(108, 105, 113) 50%, rgb(108, 105, 113))
+
+<body>
+    <script src="/demos/googlegg.js"></script>
+    <svg width="40" height="40">
+		<!-- <text style="fill:black;" font-size="80" x="160" y="240" width="440" height="440">70%</text> -->
+	    <circle cx="20" cy="20" r="17" stroke-width="2" stroke="rgb(108, 105, 113)" fill="none"></circle>
+	    <circle id="c1" cx="20" cy="20" r="17" stroke-width="2" stroke="rgb(129, 195, 0)" fill="none" transform="matrix(0,-1,1,0,0,40)" stroke-dasharray=""></circle>
+	</svg>
+    <script>
+        var circle = document.getElementById("c1");
+        var percent = 0.7,
+            perimeter = Math.PI * 2 * 17;
+        circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
+    </script>
+</body>
+
+</html>

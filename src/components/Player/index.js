@@ -31,59 +31,69 @@ const TopNav = () => {
 
   return (
     <div className='player_wrapper'>
-      {/* <i className='iconfont icon-yinyue'></i> */}
+      {/* <i className='iconfont iconyinyue'></i> */}
       <div className='player_main'>
-        <div className='p_main_left'>
-          <dl className='music_title'>
-            <dt className='m_icon'><i className='iconfont icon-yinyue'></i> </dt>
+        <div className='p_main_info p_main_left'>
+          <dl className='music_info_item music_title'>
+            <dt className='m_icon'><i className='iconfont iconyinyue'></i> </dt>
             <dd className='m_value'>僕が死のうと思ったのは</dd>
           </dl>
-          <dl className='music_user'>
-            <dt className='m_icon'><i className='iconfont icon-user'></i> </dt>
+          <dl className='music_info_item music_user'>
+            <dt className='m_icon'><i className='iconfont iconuser'></i> </dt>
             <dd className='m_value'>中島美嘉</dd>
           </dl>
-          <dl className='music_folder'>
-            <dt className='m_icon'><i className='iconfont icon-wenjianjia'></i> </dt>
+          <dl className='music_info_item music_folder'>
+            <dt className='m_icon'><i className='iconfont iconwenjianjia'></i> </dt>
             <dd className='m_value'>僕が死のうと思ったのは</dd>
           </dl>
 
           <p className='m_controlsBtn'>
-            上一首
+            <i className='iconfont iconxunhuan'></i>
+            <i className='iconfont iconxiayishou1'></i>
           </p>
         </div>
 
         <div className='p_main_center'>
           <div className='music_img'>
-            <img src='/favicon.ico' />
+            {/* <img src='/favicon.ico' /> */}
+            <img src='/image.png' alt='' srcSet='' />
           </div>
+          <div className='Play_pause_btns'>
+            <i className='iconfont iconbofang'></i>
+          </div>
+          <svg className='Play_pause_progress' width='40' height='40'>
+            <circle cx='20' cy='20' r='17' strokeWidth='2' stroke='rgb(108, 105, 113)' fill='none'></circle>
+            <circle id='c1' cx='20' cy='20' r='17' strokeWidth='2' stroke='#f30' fill='none' transform='matrix(0,-1,1,0,0,40)' strokeDasharray=''></circle>
+          </svg>
         </div>
 
-        <div className='p_main_right'>
-          <dl className='music_times'>
-            <dt className='m_icon'><i className='iconfont icon-time'></i> </dt>
+        <div className='p_main_info p_main_right'>
+          <dl className='music_info_item music_times'>
+            <dt className='m_icon'><i className='iconfont icontime'></i> </dt>
             <dd className='m_value'>01:22 / 05:19</dd>
           </dl>
-          <dl className='music_types'>
-            <dt className='m_icon'><i className='iconfont icon-xunhuan'></i> </dt>
+          <dl className='music_info_item music_types'>
+            <dt className='m_icon'><i className='iconfont iconxunhuan'></i> </dt>
             <dd className='m_value'>顺序播放</dd>
           </dl>
-          <dl className='music_lirc'>
-            <dt className='m_icon'><i className='iconfont icon-icon_duihao-mian'></i> </dt>
+          <dl className='music_info_item music_lirc'>
+            <dt className='m_icon'><i className='iconfont iconicon_duihao-mian'></i> </dt>
             <dd className='m_value'>歌词隐藏</dd>
           </dl>
 
           <p className='m_controlsBtn'>
-            下一首
+            <i className='iconfont iconxiayishou'></i>
+            <i className='iconfont iconsuiji'></i>
           </p>
         </div>
       </div>
 
       <div className='player_footer'>
-        <i className='iconfont icon-iconfontdaohanggonggao'></i>
-      progress
-        <i className='iconfont icon-xiazai'></i>
-        <i className='iconfont icon-kaiguanguan'></i>
-        <i className='iconfont icon-mulu'></i>
+        <i className='iconfont iconiconfontdaohanggonggao'></i>
+        <span className='progress'>progress</span>
+        <i className='iconfont iconxiazai'></i>
+        <i className='iconfont iconkaiguanguan'></i>
+        <i className='iconfont iconmulu'></i>
       </div>
     </div>
 

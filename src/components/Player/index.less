@@ -1,6 +1,6 @@
 .player_wrapper {
     position: fixed;
-    bottom: 50px;
+    top: 50px;
     left: 50px;
     height: 180px;
     width: 365px;
@@ -16,23 +16,135 @@
         overflow: hidden;
         display: flex;
         justify-content: space-between;
+        padding: 15px 10px;
 
-        .p_main_left,
-        .p_main_right {
+        // .p_main_left,
+        // .p_main_right 
+        .p_main_info {
             flex: 1;
             overflow: hidden;
+        }
+
+        .music_info_item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+
+            .m_icon,
+            .m_value {
+                color: #fff;
+                font-size: 12px;
+            }
+
+            .iconfont {
+                font-size: 12px;
+            }
+
+            .m_value {
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding: 0 4px;
+            }
+        }
+
+        .m_controlsBtn{
+            .iconfont{
+                font-size: 25px;
+                color: #fff;
+            }
+            .iconxunhuan{
+                margin-right: 26px;
+            }
+            .iconsuiji{
+                margin-left : 26px;
+            }
+        }
+
+        .p_main_right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .m_value {
+                flex-wrap: 0;
+            }
         }
 
         .p_main_center {
             width: 120px;
             height: 120px;
             flex-shrink: 0;
+            position: relative;
+
+            .music_img {
+                border-radius: 50%;
+                overflow: hidden;
+                border: 5px #fff solid;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 20px rgba(0, 0, 0, .3);
+                // opacity: .5;
+            }
+
+            .Play_pause_btns {
+                width: 40px;
+                height: 40px; 
+                z-index: 3;
+                cursor: pointer;
+                &:hover .iconbofang{
+                    color: #81c300;
+                }
+            }
+
+            .iconbofang {
+                font-size: 20px;
+                color: #f30; 
+                position: absolute;
+                top: 50%;
+                left: 56%;
+                transform: translate(-50%, -50%);
+            }
+
+            .Play_pause_btns,
+            .Play_pause_progress {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: .3;
+            }
         }
     }
 
     .player_footer {
-        height: 20px;
+        height: 25px;
         flex-shrink: 0;
         background: #ccc;
+        display: flex;
+        align-items: center; 
+        padding: 0 5px;
+        .progress{
+            flex: 1;
+            overflow: hidden;
+            padding: 0 24px 0 14px;
+        }
+        .iconkaiguanguan,
+        .iconmulu{
+            margin-left: 14px;
+        }
+
+    }
+
+    &:hover {
+
+        .player_main .p_main_center .Play_pause_btns,
+        .player_main .p_main_center .Play_pause_progress {
+            opacity: 1;
+        }
     }
 }

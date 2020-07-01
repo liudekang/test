@@ -1,10 +1,24 @@
 {
-  "id": "",
-  "name": "",
+  "id": "1914931",
+  "name": "my-app-react16",
   "font_family": "iconfont",
-  "css_prefix_text": "icon-",
+  "css_prefix_text": "icon",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "242328",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "1575935",
+      "name": "暂停",
+      "font_class": "zanting",
+      "unicode": "e6fa",
+      "unicode_decimal": 59130
+    },
     {
       "icon_id": "503504",
       "name": "声音",
@@ -86,8 +100,8 @@
       "icon_id": "5961027",
       "name": "开关 关",
       "font_class": "switch-off",
-      "unicode": "e576",
-      "unicode_decimal": 58742
+      "unicode": "e600",
+      "unicode_decimal": 58880
     },
     {
       "icon_id": "6441726",
