@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a79c78961c4fb4acd43cbb9515d78e83",
+    "revision": "4264a86551f5fdb8a40019606dd87787",
     "url": "/index.html"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/Page-draftBlog.62cdfeda.chunk.css"
   },
   {
-    "revision": "3fdb1c5bcc04b3395efb",
-    "url": "/static/css/Page-home.d680d62e.chunk.css"
+    "revision": "17ebbf677f9d61e0681c",
+    "url": "/static/css/Page-home.a7bdf8a9.chunk.css"
   },
   {
     "revision": "57248b4e2cb230e3d6e8",
@@ -44,8 +44,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/Page-userList.44eee4c4.chunk.css"
   },
   {
-    "revision": "1006a19e893737d92ea0",
-    "url": "/static/css/main.5b0e2f2c.chunk.css"
+    "revision": "c312b22e03618c748d12",
+    "url": "/static/css/main.07190577.chunk.css"
   },
   {
     "revision": "d7a7461ce0502032ccf8",
@@ -88,7 +88,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/Page-draftBlog.712b8eec.chunk.js"
   },
   {
-    "revision": "3fdb1c5bcc04b3395efb",
+    "revision": "17ebbf677f9d61e0681c",
     "url": "/static/js/Page-home.28cdbba1.chunk.js"
   },
   {
@@ -120,11 +120,27 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/Page-userList.1172463c.chunk.js"
   },
   {
-    "revision": "1006a19e893737d92ea0",
+    "revision": "c312b22e03618c748d12",
     "url": "/static/js/main.6f5e9419.chunk.js"
   },
   {
-    "revision": "29aaf7816f6802c2837d",
-    "url": "/static/js/runtime~main.c92ff9a6.js"
+    "revision": "f9475db4b94dd33a1564",
+    "url": "/static/js/runtime~main.c6d4f83b.js"
+  },
+  {
+    "revision": "07f12abc482dbb1978bef3c1411867d5",
+    "url": "/static/media/iconfont.07f12abc.ttf"
+  },
+  {
+    "revision": "2304b8301690ecddf65de050a0de750e",
+    "url": "/static/media/iconfont.2304b830.woff"
+  },
+  {
+    "revision": "388335095e01d6394f524e354164a43f",
+    "url": "/static/media/iconfont.38833509.eot"
+  },
+  {
+    "revision": "bbd9372949809f91e1717eedab009e07",
+    "url": "/static/media/iconfont.bbd93729.svg"
   }
 ]);
