@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 50px;
     left: 50px;
-    height: 180px;
+    // height: 180px;
     width: 365px;
     overflow: hidden;
     background-color: rgba(0, 0, 0, .1);
@@ -12,8 +12,10 @@
     flex-direction: column;
 
     .player_main {
-        flex: 1;
-        overflow: hidden;
+        // flex: 1;
+        // overflow: hidden;
+        height: 155px;
+        flex-shrink: 0;
         display: flex;
         justify-content: space-between;
         padding: 15px 10px;
@@ -49,16 +51,18 @@
             }
         }
 
-        .m_controlsBtn{
-            .iconfont{
+        .m_controlsBtn {
+            .iconfont {
                 font-size: 25px;
                 color: #fff;
             }
-            .iconxunhuan{
+
+            .iconxunhuan {
                 margin-right: 26px;
             }
-            .iconsuiji{
-                margin-left : 26px;
+
+            .iconsuiji {
+                margin-left: 26px;
             }
         }
 
@@ -93,20 +97,35 @@
 
             .Play_pause_btns {
                 width: 40px;
-                height: 40px; 
+                height: 40px;
                 z-index: 3;
                 cursor: pointer;
-                &:hover .iconbofang{
+                transition: all .5s;
+
+                &:hover .iconbofang {
                     color: #81c300;
+                }
+
+                &:hover .iconzanting {
+                    color: #f30;
                 }
             }
 
             .iconbofang {
                 font-size: 20px;
-                color: #f30; 
+                color: #f30;
                 position: absolute;
                 top: 50%;
                 left: 56%;
+                transform: translate(-50%, -50%);
+            }
+
+            .iconzanting {
+                font-size: 25px;
+                color: #FFF;
+                position: absolute;
+                top: 50%;
+                left: 50%;
                 transform: translate(-50%, -50%);
             }
 
@@ -117,6 +136,13 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
                 opacity: .3;
+                transition: all .5s;
+            }
+
+            .Play_pause_progress {
+                border-radius: 50%;
+                overflow: hidden;
+                // background-color: black;
             }
         }
     }
@@ -126,16 +152,44 @@
         flex-shrink: 0;
         background: #ccc;
         display: flex;
-        align-items: center; 
+        align-items: center;
         padding: 0 5px;
-        .progress{
+
+
+        .progress_wrap {
             flex: 1;
-            overflow: hidden;
-            padding: 0 24px 0 14px;
+            // overflow: hidden;
+            margin: 0 24px 0 14px;
+            position: relative;
+
+            .progress {
+                padding-bottom: 3px;
+                .ant-progress-inner,.ant-progress-bg{
+                    border-radius: 0;
+                }
+            }
+
+            .spot {
+                width: 16px;
+                height: 16px; 
+                background-color: #fff;
+                border-radius: 50%;
+                box-shadow: 0 0 1px 1px rgba(0,0,0,.2);
+                z-index: 2;
+                position: absolute; 
+                top: 50%;
+                left: 0;
+                transform: translate(-50%, -50%);
+            }
         }
+
         .iconkaiguanguan,
-        .iconmulu{
+        .iconmulu {
             margin-left: 14px;
+            flex-shrink: 0;
+        }
+        .iconiconfontdaohanggonggao{
+            flex-shrink: 0;
         }
 
     }

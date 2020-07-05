@@ -8,7 +8,7 @@ const service = axios.create({
 })
 service.interceptors.request.use(config => {
 //   Toast.loading('加载中',1)              // loading组件，显示文字加载中，自动关闭延时1s
-  console.log('request go');
+  console.log('request go', config);
   return config;
 }, err => {
   console.log('请求失败')

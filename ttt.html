@@ -11,14 +11,32 @@ linear-gradient(90deg, rgb(108, 105, 113) 50%, transparent 50%, transparent), li
     <script src="/demos/googlegg.js"></script>
     <svg width="40" height="40">
 		<!-- <text style="fill:black;" font-size="80" x="160" y="240" width="440" height="440">70%</text> -->
-	    <circle cx="20" cy="20" r="17" stroke-width="2" stroke="rgb(108, 105, 113)" fill="none"></circle>
-	    <circle id="c1" cx="20" cy="20" r="17" stroke-width="2" stroke="rgb(129, 195, 0)" fill="none" transform="matrix(0,-1,1,0,0,40)" stroke-dasharray=""></circle>
-	</svg>
+	    <circle cx="20" cy="20" r="17" stroke-width="4" stroke="rgb(108, 105, 113)" fill="none"></circle>
+	    <circle id="c1" cx="20" cy="20" r="17" stroke-width="4" stroke="rgb(129, 195, 0)" fill="none" transform="matrix(0,-1,1,0,0,40)" stroke-dasharray=""></circle>
+    </svg>
+    <video controls="" autoplay="" name="media"><source src="http://fs.mobile.kugou.com/202007022202/1fb84e7dff64e32fd99285f2f8ec2410/G083/M08/00/04/84YBAFhks0aAYGsBADl8RUL2DXQ825.mp3" type="audio/mpeg"></video>
+    <hr>
+    <audio controls="controls">
+        //如果播放失败会继续下一个，全都不行则提示文本
+        <source src="http://fs.mobile.kugou.com/202007022202/1fb84e7dff64e32fd99285f2f8ec2410/G083/M08/00/04/84YBAFhks0aAYGsBADl8RUL2DXQ825.mp3" type="audio/mpeg">
+            您的浏览器版本过低不能访问，请升级
+    </audio>
+    <audio src="http://fs.mobile.kugou.com/202007022202/1fb84e7dff64e32fd99285f2f8ec2410/G083/M08/00/04/84YBAFhks0aAYGsBADl8RUL2DXQ825.mp3" width="640" height="360" autoplay="autoplay">
+        您的浏览器不支持 audio 标签。
+        </audio>
     <script>
         var circle = document.getElementById("c1");
-        var percent = 0.7,
-            perimeter = Math.PI * 2 * 17;
-        circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
+        var percent = 0;
+        const times = setInterval(() => {
+                percent += 0.05;
+                const perimeter = Math.PI * 2 * 19
+                circle.setAttribute('stroke-dasharray', perimeter * percent + ' ' + perimeter * (1 - percent));
+                console.log(222, percent, times)
+                if (percent > 1) {
+                    clearInterval(times)
+                }
+            }, 500)
+            // circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
     </script>
 </body>
 

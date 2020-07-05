@@ -38,7 +38,7 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false'
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin, } = require('webpack-bundle-analyzer');
 
 const imageInlineSizeLimit = parseInt(
   process.env.IMAGE_INLINE_SIZE_LIMIT || '10000'
@@ -564,7 +564,7 @@ module.exports = function(webpackEnv) {
     },
     plugins: [
       // webpack-bundle-analyzer打包文件分析工具
-      new BundleAnalyzerPlugin({
+      isEnvProduction && new BundleAnalyzerPlugin({
         analyzerPort: 8963,
       }),
       // 编译进度条配置

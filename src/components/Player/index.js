@@ -4,29 +4,59 @@
  * @Last Modified by: mikey.liudekang
  * @Last Modified time: 2019-11-24 20:01:12
  */
-import React, { useEffect, useState } from 'react'
-import { Menu, Dropdown, Button } from 'antd'
+import React, { useEffect, useState, useRef } from 'react'
+import { Menu, Dropdown, Button, Progress } from 'antd'
+import service from 'Src/utils/request';
 
-import styles from './index.css';
+import MusicList from './MusicList';
+
 import './index.less';
+
+const perimeter = Math.PI * 2 * 19;
+const time_interval = 1;
 
 const TopNav = () => {
   const [isLogin, set_isLogin] = useState(false)
+  const [isPlay, set_isPlay] = useState(false)
+  const [playPercent, set_playPercent] = useState(0)
+
+  const couterRef = useRef();
+  const couterRef2 = useRef();
+  couterRef.current = playPercent;
   useEffect(() => {
-    // const current = window.Bmob ? window.Bmob.User.current() : null;
-    // if (current && typeof current === 'object') {
-    //   window.user = current
-    //   set_user(current)
-    //   set_isLogin(true)
-    // }
-    // console.log('user===', current)
+    // service.get('/api/users')
+    // .then(res => {
+    //   console.log(11, res)
+    // })
+
+    return () => {
+      console.log(3333, couterRef2.current)
+      clearInterval(couterRef2.current)
+    }
   }, [])
 
-  const loginOutFn = () => {
-    // window.Bmob && window.Bmob.User.logout();
-    // set_user({})
-    // set_isLogin(false)
-    // window.user = null
+  const changPlayPauseFn = () => {
+    // let percent = 0;
+    if (isPlay) {
+      set_isPlay(false);
+      // console.log(42222, couterRef2.current)
+      clearInterval(couterRef2.current)
+    } else {
+      set_isPlay(true)
+      // const circle = couterRef.current;
+      // var circle = document.getElementById('c1');
+      couterRef2.current = setInterval(() => {
+        console.log(4333, couterRef.current + 0.05, playPercent, couterRef.current);
+        set_playPercent(couterRef.current + 0.05)
+        if (couterRef.current > 1) {
+          clearInterval(couterRef2.current)
+        }
+      }, 500)
+    }
+    // var circle = document.getElementById("c1");
+    // var percent = 0.7,
+    //     perimeter = Math.PI * 2 * 17;
+    // circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
   }
 
   return (
@@ -55,15 +85,18 @@ const TopNav = () => {
 
         <div className='p_main_center'>
           <div className='music_img'>
-            {/* <img src='/favicon.ico' /> */}
             <img src='/image.png' alt='' srcSet='' />
           </div>
-          <div className='Play_pause_btns'>
-            <i className='iconfont iconbofang'></i>
+          {/* 播放暂停按钮 */}
+          <div className='Play_pause_btns' onClick={changPlayPauseFn}>
+            {
+              isPlay ? <i className='iconfont iconzanting'></i> : <i className='iconfont iconbofang'></i>
+            }
           </div>
-          <svg className='Play_pause_progress' width='40' height='40'>
-            <circle cx='20' cy='20' r='17' strokeWidth='2' stroke='rgb(108, 105, 113)' fill='none'></circle>
-            <circle id='c1' cx='20' cy='20' r='17' strokeWidth='2' stroke='#f30' fill='none' transform='matrix(0,-1,1,0,0,40)' strokeDasharray=''></circle>
+          {/* 进度条 */}
+          <svg className='Play_pause_progress' width='40' height='40' >
+            <circle cx='20' cy='20' r='19' strokeWidth='4' stroke='rgb(108, 105, 113)' fill='black'></circle>
+            <circle strokeDasharray={isPlay ? perimeter * playPercent + ' ' + perimeter * (1 - playPercent) : ''} id='c1' cx='20' cy='20' r='19' strokeWidth='4' stroke={isPlay ? 'rgb(129, 195, 0)' : '#f30'} fill='none' transform='matrix(0,-1,1,0,0,40)' ></circle>
           </svg>
         </div>
 
@@ -90,11 +123,24 @@ const TopNav = () => {
 
       <div className='player_footer'>
         <i className='iconfont iconiconfontdaohanggonggao'></i>
-        <span className='progress'>progress</span>
+        <div className='progress_wrap'>
+          <Progress
+            className='progress'
+            percent={playPercent * 100}
+            strokeColor='#81c300'
+            trailColor='#818680'
+            strokeWidth={5}
+            showInfo={false}
+          />
+          <span className='spot' style={{ left: playPercent * 100 + '%', }}></span>
+        </div>
+
         <i className='iconfont iconxiazai'></i>
         <i className='iconfont iconkaiguanguan'></i>
         <i className='iconfont iconmulu'></i>
       </div>
+
+      <MusicList></MusicList>
     </div>
 
   )
