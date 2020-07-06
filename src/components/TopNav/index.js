@@ -64,6 +64,12 @@ const TopNav = () => {
                   退出登录
                   </span>
                 </Menu.Item>
+                <Menu.Item>
+                  <a target='_blank' rel='noopener noreferrer' href='http://ldk.xihuan.fun:3001/deployLdk'>重新部署</a>
+                </Menu.Item>
+                <Menu.Item>
+                  <a target='_blank' rel='noopener noreferrer' href='http://ldk.xihuan.fun:3001/deployLdkLog'>部署日志</a>
+                </Menu.Item>
               </Menu>} placement='bottomRight'>
                 <Button>{user.username}</Button>
               </Dropdown>

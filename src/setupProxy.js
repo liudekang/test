@@ -19,12 +19,21 @@ module.exports = function(app) {
     },
     // cookieDomainRewrite: "http://localhost:3000"
   }));
-  app.use(createProxyMiddleware('/trackercdnbjApi', {
+  app.use(createProxyMiddleware('/trackercdnbjApi/', {
     target: 'http://trackercdnbj.kugou.com',
     secure: false,
     changeOrigin: true,
     pathRewrite: {
-      '^/trackercdnbjApi': '/',
+      '^/trackercdnbjApi/': '/',
+    },
+    // cookieDomainRewrite: "http://localhost:3000"
+  }));
+  app.use(createProxyMiddleware('/wyyApi', {
+    target: 'https://api.uomg.com',
+    secure: false,
+    changeOrigin: true,
+    pathRewrite: {
+      '^/wyyApi': '',
     },
     // cookieDomainRewrite: "http://localhost:3000"
   }));

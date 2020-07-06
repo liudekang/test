@@ -2,10 +2,11 @@
  * @Author: mikey.liudekang
  * @Date: 2019-09-17 20:58:00
  * @Last Modified by: mikey.liudekang
- * @Last Modified time: 2019-11-24 20:01:12
+ * @Last Modified time: 2020-07-06 22:38:02
  */
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
 import { Menu, Dropdown, Button, Progress } from 'antd'
+import { fromJS, Map, List } from 'immutable'
 import service from 'Src/utils/request';
 
 import MusicList from './MusicList';
@@ -15,49 +16,101 @@ import './index.less';
 const perimeter = Math.PI * 2 * 19;
 const time_interval = 1;
 
+const formetTime = (val) => {
+  if (!val || isNaN(val)) {
+    return '00:00'
+  }
+  const sec = ('00' + Math.floor(val % 60)).slice(-2);
+  const min = ('00' + Math.floor(val / 60)).slice(-2)
+
+  return `${min}:${sec}`
+}
+
 const TopNav = () => {
   const [isLogin, set_isLogin] = useState(false)
   const [isPlay, set_isPlay] = useState(false)
-  const [playPercent, set_playPercent] = useState(0)
+  // const [playPercent, set_playPercent] = useState(0)
 
-  const couterRef = useRef();
+  const [currentMusic, set_currentMusic] = useState(Map({}))
+  const [muTotalTime, set_muTotalTime] = useState(0)
+  const [muCurTime, set_muCurTime] = useState(0)
+
   const couterRef2 = useRef();
-  couterRef.current = playPercent;
+  const audioEle = useRef();
   useEffect(() => {
-    // service.get('/api/users')
-    // .then(res => {
-    //   console.log(11, res)
-    // })
-
-    return () => {
-      console.log(3333, couterRef2.current)
-      clearInterval(couterRef2.current)
-    }
+    getRandomMusic()
+    // return () => {
+    //   console.log(3333, couterRef2.current)
+    //   clearInterval(couterRef2.current)
+    // }
   }, [])
 
   const changPlayPauseFn = () => {
     // let percent = 0;
+    const muEle = audioEle.current;
+    if (!muEle) {
+      return console.warn('未找到audio标签');
+    }
+    const { duration, currentTime, } = muEle;
+    console.log(4444, duration, currentTime, audioEle.current)
+    muEle.play()
+
     if (isPlay) {
+      muEle.pause()
       set_isPlay(false);
-      // console.log(42222, couterRef2.current)
       clearInterval(couterRef2.current)
     } else {
+      muEle.play()
       set_isPlay(true)
-      // const circle = couterRef.current;
-      // var circle = document.getElementById('c1');
+      set_muTotalTime(duration)
+
       couterRef2.current = setInterval(() => {
-        console.log(4333, couterRef.current + 0.05, playPercent, couterRef.current);
-        set_playPercent(couterRef.current + 0.05)
-        if (couterRef.current > 1) {
+        console.log(4333, muEle.currentTime);
+        set_muCurTime(muEle.currentTime)
+        if (currentTime >= duration) {
           clearInterval(couterRef2.current)
         }
-      }, 500)
+      }, 1000)
     }
-    // var circle = document.getElementById("c1");
-    // var percent = 0.7,
-    //     perimeter = Math.PI * 2 * 17;
-    // circle.setAttribute('stroke-dasharray', perimeter * percent + " " + perimeter * (1 - percent));
   }
+
+  const getRandomMusic = () => {
+    service({
+      url: '/wyyApi/api/rand.music',
+      method: 'get',
+      params: {
+        sort: '热歌榜', // 99121191,
+        format: 'json',
+      },
+    })
+      .then(res => {
+        console.log(3444, res)
+        const muSrc = res?.data?.url;
+        if (muSrc) {
+          set_currentMusic(fromJS(res?.data))
+        }
+      })
+      .catch(err => {
+        console.warn(444, err)
+      })
+  }
+
+  const changeCurrentMusicFn = () => {
+    set_isPlay(false);
+    clearInterval(couterRef2.current)
+    set_muTotalTime(0)
+    set_muCurTime(0)
+
+    getRandomMusic()
+  }
+
+  const playPercent = useMemo(() => {
+    console.log('name memo 触发', muTotalTime, muCurTime, muCurTime / muTotalTime)
+    if (!muTotalTime || !muTotalTime) {
+      return 0
+    }
+    return muCurTime / muTotalTime // 返回一个函数
+  }, [muTotalTime, muCurTime])
 
   return (
     <div className='player_wrapper'>
@@ -66,26 +119,27 @@ const TopNav = () => {
         <div className='p_main_info p_main_left'>
           <dl className='music_info_item music_title'>
             <dt className='m_icon'><i className='iconfont iconyinyue'></i> </dt>
-            <dd className='m_value'>僕が死のうと思ったのは</dd>
+            <dd className='m_value'>{currentMusic.get('name')}</dd>
           </dl>
           <dl className='music_info_item music_user'>
             <dt className='m_icon'><i className='iconfont iconuser'></i> </dt>
-            <dd className='m_value'>中島美嘉</dd>
+            <dd className='m_value'>{currentMusic.get('artistsname')}</dd>
           </dl>
           <dl className='music_info_item music_folder'>
             <dt className='m_icon'><i className='iconfont iconwenjianjia'></i> </dt>
-            <dd className='m_value'>僕が死のうと思ったのは</dd>
+            <dd className='m_value'>{currentMusic.get('name')}</dd>
           </dl>
 
           <p className='m_controlsBtn'>
             <i className='iconfont iconxunhuan'></i>
-            <i className='iconfont iconxiayishou1'></i>
+            <i className='iconfont iconxiayishou1' onClick={changeCurrentMusicFn}></i>
           </p>
         </div>
 
         <div className='p_main_center'>
           <div className='music_img'>
-            <img src='/image.png' alt='' srcSet='' />
+            {/* <img src='/image.png' alt='' srcSet='' /> */}
+            <img src={currentMusic.get('picurl')} alt='' srcSet='' />
           </div>
           {/* 播放暂停按钮 */}
           <div className='Play_pause_btns' onClick={changPlayPauseFn}>
@@ -103,7 +157,7 @@ const TopNav = () => {
         <div className='p_main_info p_main_right'>
           <dl className='music_info_item music_times'>
             <dt className='m_icon'><i className='iconfont icontime'></i> </dt>
-            <dd className='m_value'>01:22 / 05:19</dd>
+            <dd className='m_value'>{formetTime(muCurTime)} / {formetTime(muTotalTime)}</dd>
           </dl>
           <dl className='music_info_item music_types'>
             <dt className='m_icon'><i className='iconfont iconxunhuan'></i> </dt>
@@ -115,7 +169,7 @@ const TopNav = () => {
           </dl>
 
           <p className='m_controlsBtn'>
-            <i className='iconfont iconxiayishou'></i>
+            <i className='iconfont iconxiayishou' onClick={changeCurrentMusicFn}></i>
             <i className='iconfont iconsuiji'></i>
           </p>
         </div>
@@ -133,6 +187,7 @@ const TopNav = () => {
             showInfo={false}
           />
           <span className='spot' style={{ left: playPercent * 100 + '%', }}></span>
+          <audio ref={audioEle} src={currentMusic.get('url')}> 您的浏览器不支持 audio 元素</audio>
         </div>
 
         <i className='iconfont iconxiazai'></i>
@@ -140,7 +195,7 @@ const TopNav = () => {
         <i className='iconfont iconmulu'></i>
       </div>
 
-      <MusicList></MusicList>
+      {/* <MusicList callBackCurrentMusic={callBackCurrentMusic}></MusicList> */}
     </div>
 
   )
