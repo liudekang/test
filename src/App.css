@@ -1,0 +1,29 @@
+.reactwrapper {
+    background: #F4F6F9;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.ee {
+    border: 2px dashed black;
+}
+
+.pageWrapper {
+    flex: 1;
+    overflow: auto;
+    /* background: #fff; */
+    /* display: flex;
+    justify-content: center; */
+    padding-bottom: 300px;
+}
+
+
+/* .pageWrapper>div {
+    flex: 1;
+    max-width: 1200px;
+    background: #fff;
+    padding: 0 20px;
+} */

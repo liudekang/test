@@ -1,0 +1,13 @@
+ .login {
+     display: flex;
+     justify-content: center;
+     padding: 100px 0;
+ }
+ 
+ .form_wrap {
+     width: 520px;
+ }
+ 
+ .reset_btn {
+     margin-left: 12px;
+ }
