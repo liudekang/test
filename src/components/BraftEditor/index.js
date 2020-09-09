@@ -69,6 +69,7 @@ const MangeImgs = ({ itemKey, itemLabel, itemRule, itemClassName, className, pla
     } else {
       message.error('获取oss配置失败')
     }
+    console.log(7222,osConfig)
     const newclient = new OSS({
       region: 'oss-cn-hangzhou',
       bucket: 'ldk-react16-test-20200608',

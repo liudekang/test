@@ -20,6 +20,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import service from 'Src/utils/request';
 import { Button, message, Form } from 'antd';
 import ReactMarkdown from 'react-markdown';
+//过滤xss的插件
+// import DOMPurify from 'dompurify';
+// var clean = DOMPurify.sanitize(dirty);
 import CodeBlock from './CodeBlock';
 import HeadingBlock from './HeadingBlock';
 

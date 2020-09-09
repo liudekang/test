@@ -87,19 +87,16 @@ const DraftBlog = (props) => {
       dataIndex: 'objectId',
       // eslint-disable-next-line react/display-name
       render: (text, { objectId, }) => (
-        <Space
-          className={styles.read_mord}
-        >
+        <Space >
           <Popconfirm
             title='确定要删除这篇文章么？'
             okText='确定'
             cancelText='再想想'
             onConfirm={() => deleteBlogFn(objectId)}
           >
-            <span >删除</span>
+            <span className='a-ele' >删除</span>
           </Popconfirm>
-
-          <span onClick={() => openvisibleForReadMoreDrawer(text || '')}>详情</span>
+          <a className='a-ele' target='_blank' rel='noopener noreferrer' href={`/blogDetail?objectId=${text}`} >详情</a>
         </Space>
       ),
     },
@@ -112,6 +109,7 @@ const DraftBlog = (props) => {
   const getBlogListFn = (params = {}) => {
     set_queryLoading(true)
     const query = window.Bmob.Query('blogs');
+    query.order('-createdAt');
     query.find().then(res => {
       set_blogList(res);
       console.log(118, res)
@@ -148,9 +146,6 @@ const DraftBlog = (props) => {
     }
   }
 
-  const openvisibleForReadMoreDrawer = (text) => {
-    history?.push(`/blogDetail?objectId=${text}`)
-  }
 
   const onFinish = values => {
     console.log(values);
