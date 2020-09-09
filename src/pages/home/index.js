@@ -35,7 +35,7 @@ export default class Home extends React.Component {
           <div className={styles.content}>
             <h5 className={styles.title}>网页添加 Live2D 看板娘</h5>
             <h5>当前首页</h5>
-            <Button onClick={this.submitFn}>annu</Button>
+            <Button onClick={this.submitFn}>戚薇戚薇戚薇</Button>
             <Player></Player>
           </div>
 
