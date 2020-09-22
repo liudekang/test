@@ -1,0 +1,28 @@
+ .doc_list_wrap{
+
+ }
+ .lists_ul{
+     padding: 12px 20px;
+ }
+ .li_items{
+     height: 168px;
+     border-top: 1px solid #e9e9e9;
+     display: flex;
+     flex-direction: column;
+     padding:12px 0;
+
+ }
+ .titles{
+font-size: 18px;
+margin-bottom: 8px;
+ }
+ .contents{
+     flex: 1;
+     overflow: hidden;
+
+ }
+ .doc_info{
+     margin-top: 12px;
+     display: flex;
+     align-items: center;
+ }

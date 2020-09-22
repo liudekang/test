@@ -4,7 +4,7 @@
  * @Last Modified by: mikey.liudekang
  * @Last Modified time: 2019-11-24 20:01:12
  */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import PropTypes from 'prop-types';
 import { Breadcrumb, Dropdown, Button } from 'antd'
 import routeConfig from 'Src/router/routeConfig'
@@ -13,8 +13,8 @@ import './index.less';
 
 const Panel = (props) => {
   // console.log(1333, props, window, routeConfig)
-  const { children, PanelTopLeftEle, className, } = props;
-  const [currentPageObj, set_currentPageObj] = useState({ })
+  const { children, PanelTopLeftEle, className, panelConfigs } = props;
+  const [currentPageObj, set_currentPageObj] = useState({})
   useEffect(() => {
     const pathname = window.location.pathname;
     const curArr = routeConfig.routes.filter(item => item.path === pathname);
@@ -37,12 +37,31 @@ const Panel = (props) => {
     // window.user = null
   }
 
+  const renderBreadcrumb = useMemo(() => {
+    if (Array.isArray(panelConfigs) && panelConfigs.length) {
+      return (
+        <div className='panel-Breadcrumb-wrap'>
+          <Breadcrumb>
+            {
+              panelConfigs.map(item => (
+                <Breadcrumb.Item key={item.name}>{
+                  item.path ? <a href={item.path}>{item.name}</a> : item.name
+                }
+                </Breadcrumb.Item>
+              ))
+            }
+          </Breadcrumb>
+        </div>
+      )
+    } else {
+      return null
+    }
+  }, [panelConfigs])
+
   return (
     <div className={'panel_wrapper ' + className}>
       <div className='panel_top'>
-        <Breadcrumb>
-          <Breadcrumb.Item>{currentPageObj.name}</Breadcrumb.Item>
-        </Breadcrumb>
+        {renderBreadcrumb}
         {PanelTopLeftEle}
       </div>
       <div className='panel_main'>
@@ -57,7 +76,7 @@ const Panel = (props) => {
 Panel.propTypes = {
   children: PropTypes.any,
   PanelTopLeftEle: PropTypes.element,
-  // itemLabel: PropTypes.string,
+  panelConfigs: PropTypes.array,
   // itemClassName: PropTypes.string,
   // itemRule: PropTypes.array,
 

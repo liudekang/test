@@ -16,13 +16,13 @@
  *
  */
 import PropTypes from 'prop-types';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import service from 'Src/utils/request';
 import { Button, message, Form } from 'antd';
 import ReactMarkdown from 'react-markdown';
 //过滤xss的插件
-// import DOMPurify from 'dompurify';
-// var clean = DOMPurify.sanitize(dirty);
+import DOMPurify from 'dompurify';
+
 import CodeBlock from './CodeBlock';
 import HeadingBlock from './HeadingBlock';
 
@@ -34,10 +34,17 @@ const MangeImgs = ({ data, className, }) => {
   // const [client, set_client] = useState()
 
   // const input = '# This is a header\n\nAnd this is a paragraph'
+
+  const renderData = useMemo(() => {
+    const dirty = data || '';
+    var clean = DOMPurify.sanitize(dirty);
+    return clean
+  }, [data])
+
   return (
     <ReactMarkdown
       className={'React_Markdown_readonly ' + className}
-      source={data}
+      source={renderData}
       escapeHtml={false}
       renderers={{
         code: CodeBlock,

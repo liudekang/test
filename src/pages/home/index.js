@@ -4,39 +4,68 @@
  * @Last Modified by: mikey.liudekang
  * @Last Modified time: 2020-07-26 20:37:33
  */
-import React from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
-import { Button, Calendar } from 'antd';
+import { Button, Calendar, Spin } from 'antd';
 import service from 'Src/utils/request';
 import Player from 'Src/components/Player';
 import Panel from 'Src/components/Panel';
 import Clock from 'Src/components/Clock';
+import DocLists from './components/DocLists';
 
-import styles from './index.css'
+import styles from './index.css';
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
+const panelConfigs = [
+  {
+    name: '首页',
+    // path:'/'
+  }
+];
+
+const Home = (props) => {
+
+  const [reqLoading, set_reqLoading] = useState(false);
+  const [docArr, set_docArr] = useState([]);
+
+  useEffect(() => {
+    getBlogListFn()
+  }, [])
+
+  const getBlogListFn = (params = {}) => {
+    set_reqLoading(true)
+    const query = window.Bmob.Query('blogs');
+    query.order('-createdAt');
+    query.find().then(res => {
+      set_reqLoading(res);
+      console.log(118, res)
+      set_docArr(res)
+      setTimeout(() => {
+        set_reqLoading(false)
+      }, 200)
+    });
   }
 
-  submitFn = () => {
+  const submitFn = () => {
     service.get('/api/users')
       .then(res => {
         console.log(11, res)
       })
   }
 
-  render = () => {
-    return (
-      <Panel>
+  return (
+    <Panel
+      className='page-home-panel-wrap'
+      panelConfigs={panelConfigs}
+    >
+      <Spin spinning={reqLoading}>
+
         <div className={styles.homeWrap} >
 
           <div className={styles.content}>
-            <h5 className={styles.title}>网页添加 Live2D 看板娘</h5>
-            <h5>当前首页</h5>
-            <Button onClick={this.submitFn}>戚薇戚薇戚薇</Button>
-            <Player></Player>
+
+            <DocLists
+              dataArr={docArr}
+            />
           </div>
 
           <div className={styles.slider}>
@@ -52,9 +81,10 @@ export default class Home extends React.Component {
             <Clock></Clock>
           </div>
         </div>
-
-      </Panel>
-
-    )
-  }
+      </Spin>
+      <Player></Player>
+    </Panel>
+  )
 }
+
+export default Home
