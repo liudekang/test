@@ -2,20 +2,19 @@
  * @Author: mikey.liudekang
  * @Date: 2019-09-17 20:58:00
  * @Last Modified by: mikey.liudekang
- * @Last Modified time: 2020-07-26 20:55:30
+ * @Last Modified time: 2020-07-26 20:35:18
  */
 import React, { useEffect, useState, useRef, useForm } from 'react';
 import service from 'Src/utils/request';
-import AddAndEditBlog from './components/AddAndEditBlog';
-import { Button, Drawer, Select, Form, DatePicker, Input, Table, Tag, Spin, Space, Popconfirm } from 'antd';
-import ReadOnlyMarkdown from 'Src/components/ReadOnlyMarkdown';
+import { parse, stringify } from 'qs';
+import BraftEditor from 'Src/components/BraftEditor';
+import { Button, message, Form, Input, Select, Spin, Space, Popconfirm } from 'antd';
 import Panel from 'Src/components/Panel';
-
-import moment from 'moment';
 
 import styles from './index.css';
 
 const { Option, } = Select;
+
 const tagList = [
   {
     label: '前端',
@@ -44,181 +43,195 @@ const typeList = [
     value: '翻译',
   },
 ];
+const panelConfigs = [
+  {
+    name: '首页',
+    // path:'/'
+  }
+];
 
-const DraftBlog = (props) => {
+const MangeImgs = (props) => {
   const { history, } = props;
+
   const [form] = Form.useForm();
+  const [reqLoading, set_reqLoading] = useState(false);
+  const [descVal, set_descVal] = useState();
 
-  const [queryLoading, set_queryLoading] = useState(false);
-
-  const [visibleForEditDrawer, set_visibleForEditDrawer] = useState(false);
-  const [blogList, set_blogList] = useState([]);
-
-  const columns = [
-    {
-      title: '标题',
-      dataIndex: 'title',
-      key: 'title',
-    },
-    {
-      title: '创建人',
-      dataIndex: 'username',
-      key: 'username',
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      render: text => text ? moment(text).format('YYYY-MM-DD HH:mm:ss') : '-',
-    },
-    {
-      title: '类型',
-      dataIndex: 'type',
-      key: 'type',
-      render: text => text ? text.split(',').map(item => (<Tag key={item}>{item}</Tag>)) : '-',
-    },
-    {
-      title: '标签',
-      dataIndex: 'tags',
-      render: text => text ? text.split(',').map(item => (<Tag key={item}>{item}</Tag>)) : '-',
-    },
-    {
-      title: '操作',
-      dataIndex: 'objectId',
-      // eslint-disable-next-line react/display-name
-      render: (text, { objectId, }) => (
-        <Space >
-          <Popconfirm
-            title='确定要删除这篇文章么？'
-            okText='确定'
-            cancelText='再想想'
-            onConfirm={() => deleteBlogFn(objectId)}
-          >
-            <span className='a-ele' >删除</span>
-          </Popconfirm>
-          <a className='a-ele' target='_blank' rel='noopener noreferrer' href={`/blogDetail?objectId=${text}`} >详情</a>
-        </Space>
-      ),
-    },
-  ];
+  const [editBlogDetail, set_editBlogDetail] = useState();
 
   useEffect(() => {
-    getBlogListFn()
+    const getParams = parse(history.location.search.substr(1));
+    if (getParams.objectId) {
+      const query = window.Bmob.Query('blogs');
+      query.get(getParams.objectId).then(res => {
+        res.id = getParams.objectId;
+        set_editBlogDetail(res)
+        console.log(8888, res)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+
+    console.log('hr--', history, getParams, history.location.search.substr(1));
+
   }, [])
 
-  const getBlogListFn = (params = {}) => {
-    set_queryLoading(true)
-    const query = window.Bmob.Query('blogs');
-    query.order('-createdAt');
-    query.find().then(res => {
-      set_blogList(res);
-      console.log(118, res)
-      setTimeout(() => {
-        set_queryLoading(false)
-      }, 200)
-    });
-  }
-  const deleteBlogFn = (objectId) => {
-    set_queryLoading(true)
-    const query = window.Bmob.Query('blogs');
-    query.destroy(objectId).then(res => {
-      getBlogListFn()
-    }).catch(err => {
-      console.log(err)
-    })
-  }
+  useEffect(() => {
+    if (editBlogDetail && typeof editBlogDetail === 'object') {
+      const initObj = { ...editBlogDetail, };
+      for (const keys of Object.keys(initObj)) {
+        if (['tags', 'type'].includes(keys) && initObj[keys]) {
+          initObj[keys] = initObj[keys].split(',');
+        }
+      }
+      console.log('hr--', initObj);
 
-  const openvisibleForEditDrawer = () => {
-    // window.user;
-    if (window.user) {
-      set_visibleForEditDrawer(true)
-    } else {
-      history?.push('/login')
+      form.setFieldsValue({
+        ...initObj,
+      });
     }
-    console.log(111, window.user)
-
-    //
-  }
-  const onClosevisibleForEditDrawer = (reload = false) => {
-    set_visibleForEditDrawer(false)
-    if (reload) {
-      getBlogListFn()
-    }
-  }
-
+  }, [editBlogDetail])
 
   const onFinish = values => {
-    console.log(values);
-    getBlogListFn()
+    set_reqLoading(true);
+    const getValues = { ...values };
+    getValues.description = descVal;
+    const query = window.Bmob.Query('blogs');
+    Object.keys(getValues).forEach(keys => {
+      if (Array.isArray(getValues[keys])) {
+        query.set(keys, getValues[keys].join(','))
+      } else {
+        query.set(keys, getValues[keys] || '')
+      }
+    })
+    console.log(44, getValues, window.user);
+
+    query.set('username', window.user.username)
+    query.save().then(res => {
+      console.log('ok----', res)
+      message.success('保存成功')
+      setTimeout(() => {
+        set_reqLoading(false)
+        history?.push('/blogMange');
+      }, 300)
+    }).catch(err => {
+      console.log(4444, err)
+      message.error('操作失败')
+      setTimeout(() => {
+        set_reqLoading(false)
+      }, 300)
+    })
   };
   const onReset = () => {
     form.resetFields();
-    getBlogListFn()
   };
+
+
+  const zhaiyaoEle = (
+    <div className={styles.desc_wrap}>
+      <h4 className={styles.desc_title}>生成摘要</h4>
+      <Form.Item
+        name='description'
+        // label='摘要'
+        rules={[{ required: false, message: '请输入文章摘要', }]}
+      >
+        <Input.TextArea autoSize={{ minRows: 3, maxRows: 12 }} placeholder='请输入文章摘要' />
+      </Form.Item>
+    </div>
+  )
+
+  const descCancel = () => {
+    form.setFieldsValue({
+      description: descVal,
+    });
+  }
+
+  const descConfirm = () => {
+    set_descVal(form.getFieldValue('description'))
+
+  }
+
+  const onChangeBack = (val) => {
+    form.setFieldsValue({
+      textValue: val,
+    });
+  }
+
   return (
     <Panel
-      PanelTopLeftEle={<Button onClick={openvisibleForEditDrawer}>录入文章btn</Button>}
+    // panelConfigs={panelConfigs}
+    // PanelTopLeftEle={panelTopEle}
     >
-      <Spin spinning={queryLoading}>
+      <div className={styles.draftBlog_wrapper}>
+        <Spin spinning={reqLoading}>
+          <Form form={form} name='control-hooks' onFinish={onFinish}>
+            <div className={styles.Blog_title_wrapper}>
+              <Form.Item
+                className={styles.Blog_title_ipyt}
+                name='title'
+                // label='文章标题'
+                rules={[{ required: true, message: '请输入文章标题', }]}
+              >
+                <Input maxLength={120} placeholder='请输入文章标题' />
+              </Form.Item>
+              <Form.Item >
+                <Space>
+                  <Popconfirm
+                    overlayClassName={styles.desc_popconfirm}
 
-        <Form
-          className={styles.form_Wrap}
-          form={form}
-          name='control-hooks'
-          onFinish={onFinish}
-          initialValues={{ mouthtime: moment('2015/01', 'YYYY/MM'), }}
-        >
-          <Form.Item
-            name='mouthtime'
-            label='时间'
-          >
-            <DatePicker format={'YYYY/MM'} picker='month' />
-          </Form.Item>
-          <Form.Item name='tags' label='文章标签' >
-            <Select mode='tags' tokenSeparators={[',']} placeholder='请选择或输入标签'>
-              {
-                tagList.map(item => (<Option key={item.value} value={item.value}>{item.label}</Option>))
-              }
-            </Select>
-          </Form.Item>
-          <Form.Item name='type' label='文章类型' >
-            <Select mode='tags' tokenSeparators={[',']} placeholder='请选择或输入文章类型'>
-              {
-                typeList.map(item => (<Option key={item.value} value={item.value}>{item.label}</Option>))
-              }
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name='content'
-            label='关键词'
-          >
-            <Input placeholder='请输入标题或者关键词' />
-          </Form.Item>
-          <Form.Item
-            className={styles.form_item_btns}
-          >
-            <Button type='primary' htmlType='submit'>查询</Button>
-            <Button htmlType='button' onClick={onReset} className={styles.reset_btn}>重置</Button>
-          </Form.Item>
-        </Form>
+                    placement="bottomRight"
+                    title={zhaiyaoEle}
+                    onCancel={descCancel}
+                    onConfirm={descConfirm}
+                    okText="保存摘要"
+                    cancelText="取消"
+                  >
+                    <Button htmlType='button' >添加摘要</Button>
+                  </Popconfirm>
 
-        <Table
-          dataSource={blogList}
-          columns={columns}
-          rowKey='objectId'
-        />
-      </Spin>
-      <Drawer
-        title='录入文章'
-        placement='right'
-        width='70%'
-        onClose={onClosevisibleForEditDrawer}
-        visible={visibleForEditDrawer}
-      >
-        <AddAndEditBlog oncloseFn={onClosevisibleForEditDrawer}></AddAndEditBlog>
-      </Drawer>
+                  <Button type='primary' htmlType='submit'>提交</Button>
+                </Space>
+              </Form.Item>
+            </div>
+
+            <BraftEditor
+              // itemKey='textValue'
+              // itemLabel='文章内容'
+              defaultValue={editBlogDetail?.textValue}
+              BraftEditorCallBackFn={onChangeBack}
+              // itemRule={[{ required: true, message: '请输入文章内容', }]}
+              placeholder='请输入文章内容'
+            ></BraftEditor>
+
+            <div className={styles.blog_type_wrap}>
+              <Form.Item name='tags' label='文章标签' >
+                <Select mode='tags'
+                  // tokenSeparators={[',']}
+                  placeholder='请选择或输入标签'>
+                  {
+                    tagList.map(item => (<Option key={item.value} value={item.value}>{item.label}</Option>))
+                  }
+                </Select>
+              </Form.Item>
+              <Form.Item name='type' label='文章类型' >
+                <Select mode='tags'
+                  // tokenSeparators={[',']}
+                  placeholder='请选择或输入文章类型'>
+                  {
+                    typeList.map(item => (<Option key={item.value} value={item.value}>{item.label}</Option>))
+                  }
+                </Select>
+              </Form.Item>
+            </div>
+
+
+
+          </Form>
+        </Spin>
+      </div>
+
     </Panel>
   )
 }
 
-export default DraftBlog
+export default MangeImgs

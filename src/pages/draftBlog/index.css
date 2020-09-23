@@ -1,39 +1,44 @@
- /* .wrapper {
-     padding: 12px;
-     background: #fff;
- } */
- 
- .form_Wrap {
-     display: flex;
-     flex-wrap: wrap;
-     /* background: gainsboro; */
- }
- 
- .form_Wrap :global .ant-form-item {
-     width: 25%;
-     display: flex;
- }
- 
- .form_Wrap :global .ant-form-item-label {
-     width: 80px;
-     padding-left: 10px;
-     flex-shrink: 0;
- }
- 
- .form_Wrap :global .ant-form-item-control {
-     flex: 1;
-     overflow: hidden;
- }
- 
- .form_Wrap :global .ant-picker {
-     width: 100%;
- }
- 
- .form_Wrap .form_item_btns {
-     margin-left: 80px;
- }
- 
- .reset_btn {
-     margin-left: 12px;
- }
-  
+.draftBlog_wrapper {
+  padding: 12px 20px;
+}
+
+.Blog_title_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.Blog_title_ipyt {
+  flex: 1;
+  overflow: hidden;
+  margin-right: 12px;
+}
+
+.blog_type_wrap {
+  display: flex;
+}
+
+.blog_type_wrap :global .ant-form-item {
+  flex: 1;
+  overflow: hidden;
+  margin-right: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog_type_wrap :global .ant-form-item-label {
+  text-align: left;
+}
+.desc_popconfirm :global .anticon-exclamation-circle {
+  display: none;
+}
+.desc_popconfirm :global .ant-popover-message-title {
+  padding: 0;
+}
+.desc_wrap {
+  width: 300px;
+}
+
+.desc_title {
+  font-size: 20px;
+  margin-bottom: 12px;
+}

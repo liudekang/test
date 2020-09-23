@@ -47,30 +47,34 @@ const TopNav = () => {
         </ul>
 
         <div className={styles.nav_topper_right}>
+        <Button type="primary" danger className={styles.nav_addblog_button}><a href="/draftBlog">写文章</a></Button>
           {
             isLogin
-              ? <Dropdown overlay={<Menu>
-                <Menu.Item>
+              ? <Dropdown
+              arrow
+                trigger={['click']}
+                overlay={<Menu>
+                  <Menu.Item>
 
-                个人中心
+                    个人中心
                   {/* <a target='_blank' rel='noopener noreferrer' href='http://www.alipay.com/'>
                   </a> */}
-                </Menu.Item>
-                <Menu.Item>
-                  <Link to='/setting/administrators'>设置</Link>
-                </Menu.Item>
-                <Menu.Item>
-                  <span onClick={loginOutFn}>
-                  退出登录
+                  </Menu.Item>
+                  <Menu.Item>
+                    <Link to='/setting/administrators'>设置</Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <span onClick={loginOutFn}>
+                      退出登录
                   </span>
-                </Menu.Item>
-                <Menu.Item>
-                  <a target='_blank' rel='noopener noreferrer' href='http://ldk.xihuan.fun:3001/deployLdk'>重新部署</a>
-                </Menu.Item>
-                <Menu.Item>
-                  <a target='_blank' rel='noopener noreferrer' href='http://ldk.xihuan.fun:3001/deployLdkLog'>部署日志</a>
-                </Menu.Item>
-              </Menu>} placement='bottomRight'>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <a target='_blank' rel='noopener noreferrer' href='http://ldk.xihuan.fun:3001/deployLdk'>重新部署</a>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <a target='_blank' rel='noopener noreferrer' href='http://ldk.xihuan.fun:3001/deployLdkLog'>部署日志</a>
+                  </Menu.Item>
+                </Menu>} placement='bottomRight'>
                 <Button>{user.username}</Button>
               </Dropdown>
               : <Link className={styles.login_btn} to='/login'>登录/注册</Link>

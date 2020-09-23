@@ -25,19 +25,19 @@ import BraftEditor from 'braft-editor'
 // import styles from './index.css';
 import './style.less';
 
-const MangeImgs = ({ itemKey, itemLabel, itemRule, itemClassName, className, placeholder, BraftEditorCallBackFn, }) => {
+const MangeImgs = (props) => {
   // const [form] = Form.useForm();
-  // const [client, set_client] = useState()
+  const { defaultValue, itemKey, itemLabel, itemRule, itemClassName, className, placeholder, BraftEditorCallBackFn, } = props;
+ 
   const [editorState, set_EditorState] = useState(
-    // BraftEditor.createEditorState(result.details)
+    BraftEditor.createEditorState('result.details')
   );
 
   const client = useRef(null);
 
   // 获取OSS配置，实例化oss
   useEffect(() => {
-    const osConfigstr = localStorage.getItem('os-hang-zhou-config');
-    console.log(22, osConfigstr, window.Bmob.User.current())
+    const osConfigstr = localStorage.getItem('os-hang-zhou-config'); 
     if (osConfigstr) {
       createClintFn(osConfigstr)
     } else {
@@ -55,6 +55,14 @@ const MangeImgs = ({ itemKey, itemLabel, itemRule, itemClassName, className, pla
     }
   }, [])
 
+  useEffect(() => {
+    if (defaultValue) {
+      // console.log('4754574hr--', defaultValue); 
+      set_EditorState(BraftEditor.createEditorState(defaultValue))
+    }
+  }, [defaultValue])
+
+
   const createClintFn = (osConfigstr) => {
     let osConfig = {};
     if (typeof osConfigstr === 'string') {
@@ -69,7 +77,7 @@ const MangeImgs = ({ itemKey, itemLabel, itemRule, itemClassName, className, pla
     } else {
       message.error('获取oss配置失败')
     }
-    console.log(7222,osConfig)
+    console.log(7222, osConfig)
     const newclient = new OSS({
       region: 'oss-cn-hangzhou',
       bucket: 'ldk-react16-test-20200608',
@@ -80,7 +88,7 @@ const MangeImgs = ({ itemKey, itemLabel, itemRule, itemClassName, className, pla
   }
 
   // 5.由于图片上传、视频上传项目中都是单独走的接口，需要一个上传的方法
-  const myUploadFn = async(param) => {
+  const myUploadFn = async (param) => {
     console.log('param---', param, client);
     let catalog = 'others/';// 上传目录
     const currentFile = param.file;
@@ -185,22 +193,26 @@ const MangeImgs = ({ itemKey, itemLabel, itemRule, itemClassName, className, pla
 
   //	设置如何将 event 的值转换成字段值--转换字段值
   const handleEditorChanges = (editorState) => {
+    console.log('9999--',editorState);
     const htms = editorState.toHTML();
     if (!htms || htms === '<p></p>') {
       return undefined
     }
     return htms
   };
+console.log('222222--',editorState);
 
   return (
-    <Form.Item
-      className={itemClassName}
-      getValueFromEvent={handleEditorChanges}
-      name={itemKey}
-      label={itemLabel}
-      rules={itemRule}
-    >
-      <BraftEditor
+    // <Form.Item
+    //   className={itemClassName}
+    //   getValueFromEvent={handleEditorChanges}
+    //   name={itemKey}
+    //   label={itemLabel}
+    //   rules={itemRule}
+    //   // key={draftKey}
+    // >
+    <BraftEditor
+      // key={draftKey}
         controls={
           [
 
@@ -234,7 +246,7 @@ const MangeImgs = ({ itemKey, itemLabel, itemRule, itemClassName, className, pla
         onChange={handleEditorChange}
         onSave={submitContent}
       />
-    </Form.Item>
+    // </Form.Item>
   )
 }
 MangeImgs.propTypes = {

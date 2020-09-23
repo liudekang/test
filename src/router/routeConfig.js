@@ -28,6 +28,7 @@ const testAntv = loadable(() => import(/* webpackChunkName: "Page-testAntv" */'P
 const testHook = loadable(() => import(/* webpackChunkName: "Page-testHook" */'Page/testHook'))
 const mangeImgs = loadable(() => import(/* webpackChunkName: "Page-mangeImgs" */'Page/mangeImgs'))
 const draftBlog = loadable(() => import(/* webpackChunkName: "Page-draftBlog" */'Page/draftBlog'))
+const blogMange = loadable(() => import(/* webpackChunkName: "Page-blogMange" */'Page/blogMange'))
 const blogDetail = loadable(() => import(/* webpackChunkName: "Page-blogDetail" */'Page/blogDetail'))
 const login = loadable(() => import(/* webpackChunkName: "Page-login" */'Page/login'))
 const user = loadable(() => import(/* webpackChunkName: "Page-user" */'Page/user'))
@@ -60,10 +61,15 @@ export default {
       component: testHook,
     },
     {
+      path: '/blogMange',
+      name: '文章管理页面',
+      component: blogMange,
+      show: true,
+    },
+    {
       path: '/draftBlog',
       name: '添加文章',
       component: draftBlog,
-      show: true,
     },
     {
       path: '/blogDetail',
