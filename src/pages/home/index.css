@@ -1,20 +1,27 @@
  .homeWrap {
      display: flex;
  }
+
  /* content */
- 
+
  .content {
      flex: 1;
      overflow: hidden;
  }
- 
+
  .title {
      font-size: 20px;
      margin: 0 0 10px;
      color: #3B8DD1;
  }
+
  /*  slider */
- 
+
  .slider {
      width: 320px;
+ }
+
+ .calendar_Wrap {
+     border: 1px solid #f0f0f0;
+     border-radius: 2px;
  }

@@ -67,9 +67,9 @@ const TopNav = (props) => {
       const clock_inner_width = clock_over_width - 20;
       const clock_txt_width = clock_inner_width - 20;
 
-      const clock_fen_width = clock_txt_width - 20;
+      const clock_fen_width = clock_txt_width +15;
       const clock_miao_width = clock_over_width - 10;
-      const clock_shi_width = clock_fen_width - 10;
+      const clock_shi_width = clock_fen_width - 25;
 
       // const clock_plot_shi = clock_fen_width - 10;
 

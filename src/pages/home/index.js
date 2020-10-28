@@ -70,14 +70,15 @@ const Home = (props) => {
 
           <div className={styles.slider}>
             <Calendar
+            className={styles.calendar_Wrap}
               // headerRender={() => {
               //   return <div>sss</div>
               // }}
-              locale='zh_CN' // en_US 'zh-cn'
+              // locale={{language:'zh-cn'}}// en_US 'zh-cn' zh_CN
               fullscreen={false}
             />
             {/* <img src='https://i.loli.net/2017/08/02/598187babf39e.gif' /> */}
-            <img src='/dance.webp' />
+            {/* <img src='/dance.webp' /> */}
             <Clock></Clock>
           </div>
         </div>

@@ -28,7 +28,7 @@ const formetTime = (val) => {
 }
 
 const TopNav = () => {
-  const [isLogin, set_isLogin] = useState(false)
+  const [isInit, set_isInit] = useState(true)
   const [isPlay, set_isPlay] = useState(false)
   // loop  ---循环 ;random--随机
   const [playDirection, set_playDirection] = useState('loop')
@@ -40,7 +40,7 @@ const TopNav = () => {
   const playTimer = useRef();
   const audioEle = useRef();
   useEffect(() => {
-    getRandomMusic(false)
+    getRandomMusic()
     return () => {
       document.onmousemove = null;
       document.onmouseup = null;
@@ -48,7 +48,9 @@ const TopNav = () => {
     }
   }, [])
 
+  // 暂停 \ 播放按钮
   const changPlayPauseFn = () => {
+    set_isInit(false)
     // let percent = 0;
     const muEle = audioEle.current;
     if (!muEle) {
@@ -65,6 +67,7 @@ const TopNav = () => {
     }
   }
 
+  //暂停操作
   const pauseFn = () => {
     const muEle = audioEle.current;
     muEle.pause()
@@ -72,6 +75,7 @@ const TopNav = () => {
     clearInterval(playTimer.current)
   }
 
+  //播放操作
   const playFn = () => {
     const muEle = audioEle.current;
     muEle.play()
@@ -89,7 +93,8 @@ const TopNav = () => {
     }, 1000)
   }
 
-  const getRandomMusic = (isplay = true) => {
+  //获取音乐
+  const getRandomMusic = () => {
     service({
       url: '/wyyApi/api/rand.music',
       method: 'get',
@@ -111,7 +116,7 @@ const TopNav = () => {
           console.log(3444, res, muEle, muEle.duration)
           if (muEle.duration) {
             set_muTotalTime(muEle.duration)
-            if (isplay) {
+            if (!isInit) {
               playFn()
             }
           } else {
@@ -127,15 +132,21 @@ const TopNav = () => {
       })
   }
 
+  const clickNextMusicFn = () => {
+    set_isInit(false)
+    getNextMusicFn()
+  }
+
+  //获取下一首
   const getNextMusicFn = () => {
     set_isPlay(false);
     clearInterval(playTimer.current)
     set_muTotalTime(0)
     set_muCurTime(0)
-
     getRandomMusic()
   }
 
+  //播放百分比
   const playPercent = useMemo(() => {
     // console.log('name memo 触发', muTotalTime, muCurTime, muCurTime / muTotalTime)
     if (!muTotalTime || !muTotalTime) {
@@ -144,6 +155,7 @@ const TopNav = () => {
     return muCurTime / muTotalTime // 返回一个函数
   }, [muTotalTime, muCurTime])
 
+  //拖拽进度条
   const spotMouseDown = (ev) => {
     // const pagex_0 = ev.pageX;
     const pagex_0 = ev.target.parentNode.getBoundingClientRect().left;
@@ -171,7 +183,7 @@ const TopNav = () => {
       // const [muCurTime, set_muCurTime] = useState(0)
     }
     document.onmousemove = moveSpotFn
-    document.onmouseup = function(event) {
+    document.onmouseup = function (event) {
       this.onmousemove = null;
       this.onmouseup = null;
       // console.log(133344)
@@ -206,7 +218,7 @@ const TopNav = () => {
               })}
               onClick={() => set_playDirection('loop')}
             ></i>
-            <i className='iconfont iconxiayishou1' onClick={getNextMusicFn}></i>
+            <i className='iconfont iconxiayishou1' onClick={clickNextMusicFn}></i>
           </p>
         </div>
 
@@ -254,7 +266,7 @@ const TopNav = () => {
           </dl>
 
           <p className='m_controlsBtn'>
-            <i className='iconfont iconxiayishou' onClick={getNextMusicFn}></i>
+            <i className='iconfont iconxiayishou' onClick={clickNextMusicFn}></i>
             <i
               className={classnames({
                 iconfont: true,

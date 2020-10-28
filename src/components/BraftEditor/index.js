@@ -25,19 +25,31 @@ import BraftEditor from 'braft-editor'
 // import styles from './index.css';
 import './style.less';
 
+const controls = [
+  'undo', 'redo', 'headings', 'separator',
+  {
+    key: 'bold', // 使用key来指定控件类型
+    title: '加粗选中文字哦', // 自定义控件title
+    text: <b>B</b>, // 使用自定义文案来代替默认图标(B)，此处也可传入jsx
+  },
+  'italic', 'underline', 'strike-through', 'separator',
+  'list-ul', 'list-ol', 'text-color', 'blockquote', 'code', 'separator',
+  'link', 'media', 'hr'
+];
+
 const MangeImgs = (props) => {
   // const [form] = Form.useForm();
   const { defaultValue, itemKey, itemLabel, itemRule, itemClassName, className, placeholder, BraftEditorCallBackFn, } = props;
- 
+
   const [editorState, set_EditorState] = useState(
-    BraftEditor.createEditorState('result.details')
+    // BraftEditor.createEditorState('result.details')
   );
 
   const client = useRef(null);
 
   // 获取OSS配置，实例化oss
   useEffect(() => {
-    const osConfigstr = localStorage.getItem('os-hang-zhou-config'); 
+    const osConfigstr = localStorage.getItem('os-hang-zhou-config');
     if (osConfigstr) {
       createClintFn(osConfigstr)
     } else {
@@ -56,8 +68,9 @@ const MangeImgs = (props) => {
   }, [])
 
   useEffect(() => {
+    console.log('4754574hr--', defaultValue); 
     if (defaultValue) {
-      // console.log('4754574hr--', defaultValue); 
+     
       set_EditorState(BraftEditor.createEditorState(defaultValue))
     }
   }, [defaultValue])
@@ -193,14 +206,14 @@ const MangeImgs = (props) => {
 
   //	设置如何将 event 的值转换成字段值--转换字段值
   const handleEditorChanges = (editorState) => {
-    console.log('9999--',editorState);
+    console.log('9999--', editorState);
     const htms = editorState.toHTML();
     if (!htms || htms === '<p></p>') {
       return undefined
     }
     return htms
   };
-console.log('222222--',editorState);
+  // console.log('222222--',editorState);
 
   return (
     // <Form.Item
@@ -213,39 +226,14 @@ console.log('222222--',editorState);
     // >
     <BraftEditor
       // key={draftKey}
-        controls={
-          [
-
-            'undo', 'redo', 'headings', 'separator',
-            'font-size',
-            // 'line-height', 'letter-spacing',
-            'separator',
-            'text-color',
-            // 'bold',
-            {
-              key: 'bold', // 使用key来指定控件类型
-              title: '加粗选中文字哦', // 自定义控件title
-              // text: '点我加粗', // 使用自定义文案来代替默认图标(B)，此处也可传入jsx
-              text: <b>B</b>, // 使用自定义文案来代替默认图标(B)，此处也可传入jsx
-            },
-            'italic', 'underline', 'strike-through', 'separator',
-            // 'superscript', 'subscript',
-            'remove-styles',
-            //  'emoji', 'separator', 'text-indent',
-            'text-align', 'separator',
-            'list-ul', 'list-ol', 'blockquote', 'code', 'separator',
-            'link', 'separator', 'hr', 'separator',
-            'media', 'separator',
-            'clear'
-          ]
-        }
-        value={editorState}
-        className={'my_braft_editor ' + className || ''}
-        placeholder={placeholder}
-        media={{ uploadFn: myUploadFn, }}
-        onChange={handleEditorChange}
-        onSave={submitContent}
-      />
+      controls={controls}
+      value={editorState}
+      className={'my_braft_editor ' + className || ''}
+      placeholder={placeholder}
+      media={{ uploadFn: myUploadFn, }}
+      onChange={handleEditorChange}
+      onSave={submitContent}
+    />
     // </Form.Item>
   )
 }

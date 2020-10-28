@@ -56,6 +56,7 @@ const MangeImgs = (props) => {
   const [form] = Form.useForm();
   const [reqLoading, set_reqLoading] = useState(false);
   const [descVal, set_descVal] = useState();
+  const [textValue, set_textValue] = useState();
 
   const [editBlogDetail, set_editBlogDetail] = useState();
 
@@ -72,7 +73,7 @@ const MangeImgs = (props) => {
       })
     }
 
-    console.log('hr--', history, getParams, history.location.search.substr(1));
+    // console.log('hr--', history, getParams, history.location.search.substr(1));
 
   }, [])
 
@@ -84,7 +85,7 @@ const MangeImgs = (props) => {
           initObj[keys] = initObj[keys].split(',');
         }
       }
-      console.log('hr--', initObj);
+      console.log('87777--', initObj);
 
       form.setFieldsValue({
         ...initObj,
@@ -93,10 +94,17 @@ const MangeImgs = (props) => {
   }, [editBlogDetail])
 
   const onFinish = values => {
+    if (!textValue || textValue === '<p></p>') {
+      return message.warning('请输入正文内容！')
+    }
     set_reqLoading(true);
     const getValues = { ...values };
     getValues.description = descVal;
+    getValues.textValue = textValue;
     const query = window.Bmob.Query('blogs');
+    if (editBlogDetail?.objectId) {
+      query.set('id', editBlogDetail?.objectId) //需要修改的objectId
+    }
     Object.keys(getValues).forEach(keys => {
       if (Array.isArray(getValues[keys])) {
         query.set(keys, getValues[keys].join(','))
@@ -104,7 +112,7 @@ const MangeImgs = (props) => {
         query.set(keys, getValues[keys] || '')
       }
     })
-    console.log(44, getValues, window.user);
+    // console.log(44, getValues, editBlogDetail, window.user);
 
     query.set('username', window.user.username)
     query.save().then(res => {
@@ -152,9 +160,8 @@ const MangeImgs = (props) => {
   }
 
   const onChangeBack = (val) => {
-    form.setFieldsValue({
-      textValue: val,
-    });
+    console.log('1555--', val);
+    set_textValue(val);
   }
 
   return (
