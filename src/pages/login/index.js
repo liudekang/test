@@ -73,6 +73,10 @@ const Login = (props) => {
     console.log(66, values);
     window.Bmob.User.register(values).then(res => {
       message.success('注册成功');
+      dispatch({ type: 'change_userName', params: values.username, })
+      setTimeout(() => {
+        props?.history?.goBack()
+      }, 500)
     }).catch(err => {
       if (typeof err.error === 'string') {
         message.warning(err.error.slice(0, 300))
@@ -99,7 +103,7 @@ const Login = (props) => {
             name='login'
             // initialValues={{ remember: true, }}
             onFinish={onLoginFinish}
-            // onFinishFailed={onFinishFailed}
+          // onFinishFailed={onFinishFailed}
           >
             <Form.Item
               // label='用户名'
@@ -138,7 +142,7 @@ const Login = (props) => {
             name='register'
             // initialValues={{ remember: true, }}
             onFinish={onRegisterFinish}
-            // onFinishFailed={onFinishFailed}
+          // onFinishFailed={onFinishFailed}
           >
             <Form.Item
               // label='用户名'

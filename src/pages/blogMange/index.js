@@ -7,7 +7,7 @@
 import React, { useEffect, useState, useRef, useForm } from 'react';
 import service from 'Src/utils/request';
 // import AddAndEditBlog from './components/AddAndEditBlog';
-import { Button, Drawer, Select, Form, DatePicker, Input, Table, Tag, Spin, Space, Popconfirm } from 'antd';
+import { Button, Tooltip, Select, Form, DatePicker, Input, Table, Tag, Spin, Space, Popconfirm } from 'antd';
 // import ReadOnlyMarkdown from 'Src/components/ReadOnlyMarkdown';
 import Panel from 'Src/components/Panel';
 
@@ -85,18 +85,37 @@ const DraftBlog = (props) => {
     {
       title: '操作',
       dataIndex: 'objectId',
+      width:140,
       // eslint-disable-next-line react/display-name
-      render: (text, { objectId, }) => (
+      render: (text, { objectId, username }) => (
         <Space >
-          <Popconfirm
-            title='确定要删除这篇文章么？'
-            okText='确定'
-            cancelText='再想想'
-            onConfirm={() => deleteBlogFn(objectId)}
-          >
-            <span className='a-ele' >删除</span>
-          </Popconfirm>
-          <a className='a-ele' target='_blank' rel='noopener noreferrer' href={`/draftBlog?objectId=${text}`} >编辑</a>
+          {
+            window.user?.username === username ?
+              <Popconfirm
+                title='确定要删除这篇文章么？'
+                okText='确定'
+                cancelText='再想想'
+                onConfirm={() => deleteBlogFn(objectId)}
+              >
+                <span className='a-ele' >删除</span>
+              </Popconfirm> :
+              <Tooltip title="本人才能删除和编辑">
+                <span className='disable-ele' >删除</span>
+              </Tooltip>
+          }
+          {
+            window.user?.username === username ?
+              <a
+                className='a-ele'
+                target='_blank'
+                rel='noopener noreferrer'
+                href={`/draftBlog?objectId=${text}`}
+              >编辑</a> :
+              <Tooltip title="本人才能删除和编辑">
+                <span className='disable-ele' >编辑</span>
+              </Tooltip>
+          }
+
           <a className='a-ele' target='_blank' rel='noopener noreferrer' href={`/blogDetail?objectId=${text}`} >详情</a>
         </Space>
       ),
@@ -140,7 +159,7 @@ const DraftBlog = (props) => {
 
   //   //
   // }
- 
+
 
   const onFinish = values => {
     console.log(values);
@@ -152,7 +171,7 @@ const DraftBlog = (props) => {
   };
   return (
     <Panel
-      // PanelTopLeftEle={<Button onClick={openvisibleForEditDrawer}>录入文章btn</Button>}
+    // PanelTopLeftEle={<Button onClick={openvisibleForEditDrawer}>录入文章btn</Button>}
     >
       <Spin spinning={queryLoading}>
 
@@ -202,7 +221,7 @@ const DraftBlog = (props) => {
           columns={columns}
           rowKey='objectId'
         />
-      </Spin> 
+      </Spin>
     </Panel>
   )
 }

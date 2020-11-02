@@ -58,11 +58,8 @@ const Home = (props) => {
       panelConfigs={panelConfigs}
     >
       <Spin spinning={reqLoading}>
-
         <div className={styles.homeWrap} >
-
           <div className={styles.content}>
-
             <DocLists
               dataArr={docArr}
             />
@@ -70,11 +67,10 @@ const Home = (props) => {
 
           <div className={styles.slider}>
             <Calendar
-            className={styles.calendar_Wrap}
+              className={styles.calendar_Wrap}
               // headerRender={() => {
               //   return <div>sss</div>
-              // }}
-              // locale={{language:'zh-cn'}}// en_US 'zh-cn' zh_CN
+              // }} 
               fullscreen={false}
             />
             {/* <img src='https://i.loli.net/2017/08/02/598187babf39e.gif' /> */}
