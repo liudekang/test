@@ -28,6 +28,7 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
 const eslint = require('eslint')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const chalk = require('chalk')
+const AntdDayjsWebpackPlugin  = require('antd-dayjs-webpack-plugin')
 
 const postcssNormalize = require('postcss-normalize')
 
@@ -293,13 +294,14 @@ module.exports = function(webpackEnv) {
       alias: {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
+        'moment': 'dayjs',
         'react-native': 'react-native-web',
         'Src': path.resolve(process.cwd(), 'src'),
         'C': path.resolve(process.cwd(), 'src/components'),
         'Util': path.resolve(process.cwd(), 'src/utils'),
         'Page': path.resolve(process.cwd(), 'src/pages'),
       },
-      plugins: [
+      plugins: [ 
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
         // guards against forgotten dependencies and such.
         PnpWebpackPlugin,
@@ -563,6 +565,8 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+         //dayjs替换moment
+         new AntdDayjsWebpackPlugin(),
       // webpack-bundle-analyzer打包文件分析工具
       isEnvProduction && new BundleAnalyzerPlugin({
         analyzerPort: 8963,
@@ -660,7 +664,8 @@ module.exports = function(webpackEnv) {
       // solution that requires the user to opt into importing specific locales.
       // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
       // You can remove this if you don't use Moment.js:
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // new webpack.IgnorePlugin(/^\.\/locale$/),
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the Webpack build.
       isEnvProduction &&

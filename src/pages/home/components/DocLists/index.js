@@ -28,7 +28,7 @@ const Home = (props) => {
   const { dataArr } = props;
 
   useEffect(() => {
-
+    
   }, [])
 
 

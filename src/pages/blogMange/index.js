@@ -4,16 +4,19 @@
  * @Last Modified by: mikey.liudekang
  * @Last Modified time: 2020-07-26 20:55:30
  */
-import React, { useEffect, useState, useRef, useForm } from 'react';
+import React, { useEffect, useState, useRef, useForm,useReducer } from 'react';
 import service from 'Src/utils/request';
+import {Map,List,fromJS} from 'immutable';
 // import AddAndEditBlog from './components/AddAndEditBlog';
 import { Button, Tooltip, Select, Form, DatePicker, Input, Table, Tag, Spin, Space, Popconfirm } from 'antd';
 // import ReadOnlyMarkdown from 'Src/components/ReadOnlyMarkdown';
 import Panel from 'Src/components/Panel';
 
 import moment from 'moment';
+import dayjs from 'dayjs';
 
 import styles from './index.css';
+console.log('1999--',moment,'111',dayjs,moment===dayjs);
 
 const { Option, } = Select;
 const tagList = [
@@ -45,11 +48,33 @@ const typeList = [
   },
 ];
 
+const queryInitData=Map({
+  current:1,
+  pageSize:10,
+  total:0,
+  // startTime:new Date(),
+  // endTime:new Date(),
+})
+
+const queryReducer = (state, action) =>{
+  const {type,paload}=action;
+  switch(type){
+    case 'current_change':
+      return state.set('current',paload);
+      case 'pageSize_change':
+      return state.set('pageSize',paload);
+      case 'total_change':
+      return state.set('total',paload);
+      default:return state;
+  }
+}
+
 const DraftBlog = (props) => {
   const { history, } = props;
   const [form] = Form.useForm();
 
   const [queryLoading, set_queryLoading] = useState(false);
+  const [queryData, query_Dispatch] = useReducer(queryReducer,queryInitData);
 
   const [visibleForEditDrawer, set_visibleForEditDrawer] = useState(false);
   const [blogList, set_blogList] = useState([]);
@@ -123,20 +148,34 @@ const DraftBlog = (props) => {
   ];
 
   useEffect(() => {
-    getBlogListFn()
+   
   }, [])
+
+  useEffect(() => {
+ console.log('15333--',queryData.toJS());
+ getBlogListFn()
+  }, [queryData])
 
   const getBlogListFn = (params = {}) => {
     set_queryLoading(true)
     const query = window.Bmob.Query('blogs');
+    //我们可以对返回的结果进行排序（只支持number，date，string类型的排序）
     query.order('-createdAt');
-    query.limit(10);
+    //认情况下，Limit的值为10，最大有效设置值1000（设置的数值超过1000还是视为1000）。
+    query.limit(queryData.get('pageSize'));
+    //skip方法可以做到跳过查询的前多少条数据来实现分页查询的功能。默认情况下skip的值为10。
+    query.skip(queryData.get('pageSize')*(queryData.get('current')-1));
     query.find().then(res => {
       set_blogList(res);
       console.log(118, res)
       setTimeout(() => {
         set_queryLoading(false)
       }, 200)
+    });
+    //果你只是想统计满足query的结果集到底有多条记录，你可以使用count方法。如为了获得diary表的记录数量
+    query.count().then(res => {
+      console.log(`777共有${res}条记录`)
+      query_Dispatch({ type:'total_change',paload:res})
     });
   }
   const deleteBlogFn = (objectId) => {
@@ -170,6 +209,13 @@ const DraftBlog = (props) => {
     form.resetFields();
     getBlogListFn()
   };
+
+  const tableChangeFn=(pagination, filters, sorter)=>{
+    console.log('hr--',pagination, filters, sorter);
+    query_Dispatch({ type:'current_change',paload:pagination.current});
+    query_Dispatch({ type:'pageSize_change',paload:pagination.pageSize});
+    query_Dispatch({ type:'total_change',paload:pagination.total});
+  }
   return (
     <Panel
     // PanelTopLeftEle={<Button onClick={openvisibleForEditDrawer}>录入文章btn</Button>}
@@ -221,6 +267,14 @@ const DraftBlog = (props) => {
           dataSource={blogList}
           columns={columns}
           rowKey='objectId'
+          onChange={tableChangeFn}
+          pagination={{ 
+            current:queryData.get('current'),
+            pageSize:queryData.get('pageSize'),
+            total:queryData.get('total'),
+            showQuickJumper:true,
+            showTotal:total => `共 ${total} 条`,
+          }}
         />
       </Spin>
     </Panel>

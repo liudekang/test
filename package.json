@@ -31,6 +31,7 @@
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "classnames": "^2.2.6",
     "css-loader": "2.1.1",
+    "dayjs": "^1.9.6",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^6.1.0",
@@ -55,7 +56,6 @@
     "jest-watch-typeahead": "0.3.1",
     "markdown-it": "^11.0.0",
     "mini-css-extract-plugin": "0.5.0",
-    "moment": "^2.27.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.5.0",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -154,6 +154,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.10.1",
+    "antd-dayjs-webpack-plugin": "^1.0.1",
     "babel-eslint": "^10.0.2",
     "babel-plugin-import": "^1.13.0",
     "dompurify": "^2.0.17",

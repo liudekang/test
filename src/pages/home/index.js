@@ -44,6 +44,7 @@ const Home = (props) => {
         set_reqLoading(false)
       }, 200)
     });
+  
   }
 
   const submitFn = () => {
