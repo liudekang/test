@@ -35,6 +35,7 @@ const Home = (props) => {
     set_reqLoading(true)
     const query = window.Bmob.Query('blogs');
     query.order('-createdAt');
+    query.limit(10);
     query.find().then(res => {
       set_reqLoading(res);
       console.log(118, res)

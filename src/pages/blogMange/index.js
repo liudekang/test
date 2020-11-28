@@ -130,6 +130,7 @@ const DraftBlog = (props) => {
     set_queryLoading(true)
     const query = window.Bmob.Query('blogs');
     query.order('-createdAt');
+    query.limit(10);
     query.find().then(res => {
       set_blogList(res);
       console.log(118, res)

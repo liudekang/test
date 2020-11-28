@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6e4eaec2747e19ae71a007bebff5122c",
+    "revision": "fa95e0c52b5cb39fa93d0b7a2f972f11",
     "url": "/index.html"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/Page-NoFont404Page.be27ba2f.chunk.css"
   },
   {
-    "revision": "e3bc6395a32c20240a4c",
+    "revision": "761e375fd89c18d6c41c",
     "url": "/static/css/Page-administrators.e936f2ec.chunk.css"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/Page-blogDetail.04d84f99.chunk.css"
   },
   {
-    "revision": "fa3e162591aaf4e86aad",
+    "revision": "70279ec2273a511563fe",
     "url": "/static/css/Page-blogMange.a82b7ecd.chunk.css"
   },
   {
@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/Page-draftBlog.1bb64f88.chunk.css"
   },
   {
-    "revision": "215b00b03cf1c1e66352",
+    "revision": "063d5c8700104fa73e77",
     "url": "/static/css/Page-home.9feb5de7.chunk.css"
   },
   {
@@ -48,7 +48,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/Page-user.0df37a58.chunk.css"
   },
   {
-    "revision": "9712081efb45ea1ef4fe",
+    "revision": "0d6e3ff5e9dddd8d7e4b",
     "url": "/static/css/Page-userList.44eee4c4.chunk.css"
   },
   {
@@ -104,24 +104,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/Page-NoFont404Page.ff205df3.chunk.js"
   },
   {
-    "revision": "e3bc6395a32c20240a4c",
-    "url": "/static/js/Page-administrators.71e2cbf0.chunk.js"
+    "revision": "761e375fd89c18d6c41c",
+    "url": "/static/js/Page-administrators.dd2fa16b.chunk.js"
   },
   {
     "revision": "076079385f1f0bc3407c",
     "url": "/static/js/Page-blogDetail.9cbbb278.chunk.js"
   },
   {
-    "revision": "fa3e162591aaf4e86aad",
-    "url": "/static/js/Page-blogMange.81704808.chunk.js"
+    "revision": "70279ec2273a511563fe",
+    "url": "/static/js/Page-blogMange.3ee0d39d.chunk.js"
   },
   {
     "revision": "82d97ff76c66ca6ff922",
     "url": "/static/js/Page-draftBlog.c7a43bad.chunk.js"
   },
   {
-    "revision": "215b00b03cf1c1e66352",
-    "url": "/static/js/Page-home.da57d773.chunk.js"
+    "revision": "063d5c8700104fa73e77",
+    "url": "/static/js/Page-home.8711f25d.chunk.js"
   },
   {
     "revision": "41d99fa4f1b4bf7f48ba",
@@ -148,16 +148,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/Page-user.fa215da9.chunk.js"
   },
   {
-    "revision": "9712081efb45ea1ef4fe",
-    "url": "/static/js/Page-userList.ded5caa8.chunk.js"
+    "revision": "0d6e3ff5e9dddd8d7e4b",
+    "url": "/static/js/Page-userList.e957529f.chunk.js"
   },
   {
     "revision": "29863da340480c088e18",
     "url": "/static/js/main.34612e51.chunk.js"
   },
   {
-    "revision": "b2c200efa543faf46a35",
-    "url": "/static/js/runtime~main.5b9b6ad3.js"
+    "revision": "919b4bb6fc93184df5db",
+    "url": "/static/js/runtime~main.834bc0c7.js"
   },
   {
     "revision": "07f12abc482dbb1978bef3c1411867d5",

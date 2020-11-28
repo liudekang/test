@@ -49,6 +49,7 @@ const administrators = () => {
   const [userList, Set_userList] = useState([])
   useEffect(() => {
     const query = window.Bmob.Query('_User');
+    query.limit(10);
     query.find().then(res => {
       if (Array.isArray(res)) {
         const resArr = res.filter(item => (item.leave + '').toLowerCase() === 'p1')
