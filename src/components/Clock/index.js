@@ -30,7 +30,7 @@ const TopNav = (props) => {
 
   const loginOutFn = () => {
     change();
-    return setInterval(function() {
+    return setInterval(function () {
       change();
     }, 1000);
 
@@ -67,7 +67,7 @@ const TopNav = (props) => {
       const clock_inner_width = clock_over_width - 20;
       const clock_txt_width = clock_inner_width - 20;
 
-      const clock_fen_width = clock_txt_width +15;
+      const clock_fen_width = clock_txt_width + 15;
       const clock_miao_width = clock_over_width - 10;
       const clock_shi_width = clock_fen_width - 25;
 
